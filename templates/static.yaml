@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static
+spec:
+  selector:
+    matchLabels:
+      app: static
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: static
+    spec:
+      volumes:
+        - name: img
+          persistentVolumeClaim:
+            claimName: img
+      containers:
+        - name: static
+          image: nginx:1-alpine
+          ports:
+            - name: app-port
+              containerPort: 80
+          env:
+            - name: NGINX_ENTRYPOINT_QUIET_LOGS
+              value: "1"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: app-port
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: app-port
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          volumeMounts:
+            - mountPath: "/usr/share/nginx/html/img"
+              name: img
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: static
+  name: static
+spec:
+  ports:
+    - name: app-port
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: static
+  sessionAffinity: None
+  type: ClusterIP
+

@@ -6,16 +6,12 @@ spec:
   selector:
     matchLabels:
       app: backend
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
         app: backend
     spec:
-      volumes:
-        - name: img
-          persistentVolumeClaim:
-            claimName: img
       containers:
         - name: backend
           image: autowp/autowp
@@ -127,9 +123,6 @@ spec:
               value: "picture"
             - name: AUTOWP_AUTH_SECRET
               value: {{ .Values.auth.secret | quote}}
-          volumeMounts:
-            - mountPath: "/app/public_html/img"
-              name: img
 
 ---
 apiVersion: v1

@@ -45,12 +45,7 @@ spec:
         - path: /img/
           pathType: Prefix
           backend:
-            serviceName: backend
-            servicePort: 80
-        - path: /image/
-          pathType: Prefix
-          backend:
-            serviceName: backend
+            serviceName: static
             servicePort: 80
   {{- end }}
 
