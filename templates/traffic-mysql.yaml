@@ -1,0 +1,63 @@
+apiVersion: v1
+data: {{ (tpl (.Files.Glob "configs/traffic-mysql/*").AsConfig . ) | nindent 2 }}
+kind: ConfigMap
+metadata:
+  name: traffic-mysql
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-mysql
+spec:
+  selector:
+    matchLabels:
+      app: traffic-mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: traffic-mysql
+    spec:
+      volumes:
+        - name: traffic-mysql
+          persistentVolumeClaim:
+            claimName: traffic-mysql
+        - configMap:
+            defaultMode: 420
+            name: traffic-mysql
+          name: config
+      containers:
+        - name: traffic-mysql
+          image: mysql:8
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password"
+            - name: MYSQL_DATABASE
+              value: "traffic"
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: traffic-mysql
+            - mountPath: /etc/mysql/conf.d/mysql.cnf
+              name: config
+              subPath: mysql.cnf
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: traffic-mysql
+  name: traffic-mysql
+spec:
+  ports:
+    - name: app-port
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+    app: traffic-mysql
+  sessionAffinity: None
+  type: ClusterIP

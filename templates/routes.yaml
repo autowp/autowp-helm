@@ -1,0 +1,93 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: auth
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  {{- range .Values.hostnames }}
+  - host: {{ . }}
+    http:
+      paths:
+        - path: /api/oauth/
+          pathType: Prefix
+          backend:
+            serviceName: auth
+            servicePort: 8080
+  {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: backend
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+spec:
+  rules:
+  {{- range .Values.hostnames }}
+  - host: {{ . }}
+    http:
+      paths:
+        - path: /api/
+          pathType: Prefix
+          backend:
+            serviceName: backend
+            servicePort: 80
+        - path: /pictures/
+          pathType: Prefix
+          backend:
+            serviceName: backend
+            servicePort: 80
+        - path: /img/
+          pathType: Prefix
+          backend:
+            serviceName: backend
+            servicePort: 80
+        - path: /image/
+          pathType: Prefix
+          backend:
+            serviceName: backend
+            servicePort: 80
+  {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: goautowp
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  {{- range .Values.hostnames }}
+  - host: {{ . }}
+    http:
+      paths:
+        - path: /go-api/
+          pathType: Prefix
+          backend:
+            serviceName: goautowp
+            servicePort: 80
+  {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  {{- range .Values.hostnames }}
+  - host: {{ . }}
+    http:
+      paths:
+        - backend:
+            serviceName: frontend
+            servicePort: 80
+  {{- end }}

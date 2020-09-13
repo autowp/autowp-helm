@@ -1,0 +1,9 @@
+[mysqld]
+tmp_table_size=2G
+max_heap_table_size=2G
+
+#default-time-zone='UTC'
+
+default_authentication_plugin=mysql_native_password
+
+expire_logs_days=7

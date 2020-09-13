@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic
+spec:
+  selector:
+    matchLabels:
+      app: traffic
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: traffic
+    spec:
+      containers:
+        - name: traffic
+          image: autowp/traffic
+          ports:
+            - name: app-port
+              containerPort: 80
+          env:
+            - name: GIN_MODE
+              value: "release"
+            - name: TRAFFIC_RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: TRAFFIC_RABBITMQ_PORT
+              value: "5672"
+            - name: TRAFFIC_MONITORING_QUEUE
+              value: "input"
+            - name: TRAFFIC_HOTLINK_QUEUE
+              value: "hotlink"
+            - name: TRAFFIC_MYSQL_DSN
+              value: "root:password@tcp(traffic-mysql:3306)/traffic?charset=utf8mb4&parseTime=true&loc=UTC"
+            - name: TRAFFIC_MIGRATIONS_DSN
+              value: "mysql://root:password@tcp(traffic-mysql)/traffic?charset=utf8mb4&parseTime=true&loc=UTC"
+            - name: TRAFFIC_SENTRY_DSN
+              value: {{ .Values.traffic.sentry.dsn | quote }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: traffic
+  name: traffic
+spec:
+  ports:
+    - name: app-port
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: traffic
+  sessionAffinity: None
+  type: ClusterIP

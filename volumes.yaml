@@ -1,0 +1,188 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: autowp-img
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: autowp-img
+  local:
+    path: /root/docker/autowp.ru/img
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - autowp
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: img
+  namespace: autowp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: autowp-img
+  resources:
+    requests:
+      storage: 500Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: autowp-mysql
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: autowp-mysql
+  local:
+    path: /root/docker/autowp.ru/mysql
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - autowp
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: autowp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: autowp-mysql
+  resources:
+    requests:
+      storage: 500Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: autowp-rabbitmq
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: autowp-rabbitmq
+  local:
+    path: /root/docker/autowp.ru/rabbitmq-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - autowp
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: rabbitmq
+  namespace: autowp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: autowp-rabbitmq
+  resources:
+    requests:
+      storage: 500Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: autowp-traffic-mysql
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: autowp-traffic-mysql
+  local:
+    path: /root/docker/autowp.ru/traffic-mysql/data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - autowp
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: traffic-mysql
+  namespace: autowp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: autowp-traffic-mysql
+  resources:
+    requests:
+      storage: 500Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: autowp-auth-postgres
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: autowp-auth-postgres
+  local:
+    path: /root/docker/autowp.ru/auth/data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - autowp
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: auth-postgres
+  namespace: autowp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: autowp-auth-postgres
+  resources:
+    requests:
+      storage: 500Gi

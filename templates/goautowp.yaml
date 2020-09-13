@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goautowp
+spec:
+  selector:
+    matchLabels:
+      app: goautowp
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: goautowp
+    spec:
+      containers:
+        - name: goautowp
+          image: autowp/goautowp
+          ports:
+            - name: app-port
+              containerPort: 80
+          env:
+            - name: AUTOWP_RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: AUTOWP_RABBITMQ_PORT
+              value: "5672"
+            - name: AUTOWP_DUPLICATE_FINDER_QUEUE
+              value: "duplicate_finder"
+            - name: AUTOWP_MYSQL_DSN
+              value: "{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp(mysql:3306)/autowp?charset=utf8mb4&parseTime=true&loc=UTC"
+            - name: AUTOWP_MIGRATIONS_DSN
+              value: "mysql://{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp(mysql)/autowp?charset=utf8mb4&parseTime=true&loc=UTC"
+            - name: AUTOWP_SENTRY_DSN
+              value: {{ .Values.goautowp.sentry.dsn | quote }}
+            - name: AUTOWP_SENTRY_ENVIRONMENT
+              value: "production"
+            - name: AUTOWP_SENTRY_RELEASE
+              value: "dev"
+            - name: AUTOWP_IMAGES_DIR
+              value: "/app/pictures"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: goautowp
+  name: goautowp
+spec:
+  ports:
+    - name: app-port
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: goautowp
+  sessionAffinity: None
+  type: ClusterIP
+

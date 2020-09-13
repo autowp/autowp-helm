@@ -1,0 +1,76 @@
+hostnames:
+  - www.autowp.ru
+  - be.wheelsage.org
+  - br.wheelsage.org
+  - en.wheelsage.org
+  - fr.wheelsage.org
+  - uk.wheelsage.org
+  - zh.wheelsage.org
+auth:
+  sentry:
+    dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
+  secret: 1234567890abcdef1234567890abcdef
+
+mysql:
+  username: username
+  password: password
+  rootPassword: password
+
+emailSalt: salt
+usersSalt: salt
+
+google:
+  clientId: "1234567890.apps.googleusercontent.com"
+  clientSecret: "secret"
+
+facebook:
+  clientId: "1234567890"
+  clientSecret: "secret"
+  pageAccessToken: "access_token"
+
+vk:
+  clientId: "1234567890"
+  clientSecret: "secret"
+  token: "token"
+  ownerId: "-1234567890"
+
+smtp:
+  hostname: "example.com"
+  username: "no-reply@autowp.ru"
+  password: "password"
+
+telegram:
+  webhookToken: "token"
+  accessToken: "1234567890:token"
+
+twitter:
+  username: "autowp_ru"
+  key: "key"
+  secret: "secret"
+  oauthToken: "1234567890-token"
+  oauthSecret: "secret"
+
+yandexMoney:
+  secret: "secret"
+  price: "999"
+
+reCaptcha:
+  publicKey: "publicKey"
+  privateKey: "privateKey"
+
+backend:
+  sentry:
+    dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
+
+s3:
+  key: "key"
+  secret: "secret"
+  endpoints: "https://n1.example.com;https://n2.example.com;https://n3.example.com"
+
+goautowp:
+  sentry:
+    dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
+
+traffic:
+  sentry:
+    dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
