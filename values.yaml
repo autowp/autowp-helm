@@ -74,3 +74,9 @@ goautowp:
 traffic:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
+
+backup:
+  s3Hostname: "s3.example.com"
+  s3AccessKey: "key"
+  s3Secret: "secret"
+  s3Bucket: "bucket"
