@@ -19,6 +19,7 @@ spec:
       containers:
         - name: static
           image: nginx:1-alpine
+          imagePullPolicy: Always
           ports:
             - name: app-port
               containerPort: 80

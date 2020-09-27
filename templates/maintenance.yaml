@@ -11,6 +11,7 @@ spec:
           containers:
             - name: maintenance
               image: autowp/autowp
+              imagePullPolicy: Always
               args:
                 - ./zf
                 - cron

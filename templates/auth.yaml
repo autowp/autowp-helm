@@ -27,6 +27,7 @@ spec:
       containers:
         - name: auth
           image: autowp/auth
+          imagePullPolicy: Always
           ports:
             - name: app-port
               containerPort: 80

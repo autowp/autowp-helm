@@ -11,6 +11,17 @@ auth:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
   secret: 1234567890abcdef1234567890abcdef
 
+redirects:
+  - from:
+    - ru.autowp.ru
+    - autowp.ru
+    to: www.autowp.ru
+  - from:
+    - en.autowp.ru
+    - www.wheelsage.org
+    - wheelsage.org
+    to: en.wheelsage.org
+
 mysql:
   username: username
   password: password

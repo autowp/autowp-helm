@@ -23,6 +23,7 @@ spec:
           containers:
             - name: mysql-backup
               image: autowp/autowp-tools
+              imagePullPolicy: Always
               env:
               - name: MYSQL_ROOT_PASSWORD
                 value: {{ .Values.mysql.rootPassword | quote }}

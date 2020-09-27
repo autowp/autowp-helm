@@ -30,6 +30,7 @@ spec:
       containers:
         - name: rabbitmq
           image: rabbitmq:3-alpine
+          imagePullPolicy: Always
           ports:
             - containerPort: 11211
           env:

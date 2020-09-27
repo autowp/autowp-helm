@@ -15,6 +15,7 @@ spec:
       containers:
         - name: traffic
           image: autowp/traffic
+          imagePullPolicy: Always
           ports:
             - name: app-port
               containerPort: 80
