@@ -13,11 +13,9 @@ auth:
 
 redirects:
   - from:
-    - ru.autowp.ru
     - autowp.ru
     to: www.autowp.ru
   - from:
-    - en.autowp.ru
     - www.wheelsage.org
     - wheelsage.org
     to: en.wheelsage.org
