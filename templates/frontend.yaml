@@ -18,7 +18,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - name: app-port
-          containerPort: 80
+          containerPort: 8080
         livenessProbe:
           httpGet:
             path: /
@@ -41,6 +41,10 @@ spec:
                 value: "www.autowp.ru"
           initialDelaySeconds: 5
           periodSeconds: 10
+        securityContext:
+          runAsNonRoot: true
+      securityContext:
+        runAsNonRoot: true
 
 ---
 apiVersion: v1
@@ -54,7 +58,7 @@ spec:
     - name: app-port
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: app-port
   selector:
     app: frontend
   sessionAffinity: None
