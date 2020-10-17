@@ -18,6 +18,8 @@ spec:
     metadata:
       labels:
         app: auth-postgres
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/auth-postgres/*").AsConfig . ) | sha256sum }}
     spec:
       volumes:
         - name: auth-postgres

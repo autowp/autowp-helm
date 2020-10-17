@@ -18,6 +18,8 @@ spec:
     metadata:
       labels:
         app: rabbitmq
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/rabbitmq/*").AsConfig . ) | sha256sum }}
     spec:
       volumes:
         - name: rabbitmq

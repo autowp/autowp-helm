@@ -18,6 +18,8 @@ spec:
     metadata:
       labels:
         app: auth
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/auth/*").AsConfig . ) | sha256sum }}
     spec:
       volumes:
         - configMap:

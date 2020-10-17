@@ -18,6 +18,8 @@ spec:
     metadata:
       labels:
         app: traffic-mysql
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/traffic-mysql/*").AsConfig . ) | sha256sum }}
     spec:
       volumes:
         - name: traffic-mysql

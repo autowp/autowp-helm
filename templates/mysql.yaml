@@ -18,6 +18,8 @@ spec:
     metadata:
       labels:
         app: mysql
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/mysql/*").AsConfig . ) | sha256sum }}
     spec:
       volumes:
         - name: mysql
