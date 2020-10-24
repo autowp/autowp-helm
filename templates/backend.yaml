@@ -111,7 +111,7 @@ spec:
             - name: AUTOWP_S3_SECRET
               value: {{ .Values.s3.secret | quote }}
             - name: AUTOWP_S3_ENDPOINT
-              value: {{ .Values.s3.endpoints | quote }}
+              value: {{ join ";" .Values.s3.endpoints | quote }}
             - name: AUTOWP_IMAGE_FORMAT_BUCKET
               value: "format"
             - name: AUTOWP_IMAGE_MUSEUM_BUCKET

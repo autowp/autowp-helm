@@ -1,3 +1,10 @@
+apiVersion: v1
+data: {{ (tpl (.Files.Glob "configs/goautowp/*").AsConfig . ) | nindent 2 }}
+kind: ConfigMap
+metadata:
+  name: goautowp
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,33 +18,25 @@ spec:
     metadata:
       labels:
         app: goautowp
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/goautowp/*").AsConfig . ) | sha256sum }}
     spec:
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: goautowp
+          name: config
       containers:
         - name: goautowp
           image: autowp/goautowp
           imagePullPolicy: Always
           ports:
             - name: app-port
-              containerPort: 80
-          env:
-            - name: AUTOWP_RABBITMQ_HOST
-              value: "rabbitmq"
-            - name: AUTOWP_RABBITMQ_PORT
-              value: "5672"
-            - name: AUTOWP_DUPLICATE_FINDER_QUEUE
-              value: "duplicate_finder"
-            - name: AUTOWP_MYSQL_DSN
-              value: "{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp(mysql:3306)/autowp?charset=utf8mb4&parseTime=true&loc=UTC"
-            - name: AUTOWP_MIGRATIONS_DSN
-              value: "mysql://{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp(mysql)/autowp?charset=utf8mb4&parseTime=true&loc=UTC"
-            - name: AUTOWP_SENTRY_DSN
-              value: {{ .Values.goautowp.sentry.dsn | quote }}
-            - name: AUTOWP_SENTRY_ENVIRONMENT
-              value: "production"
-            - name: AUTOWP_SENTRY_RELEASE
-              value: "dev"
-            - name: AUTOWP_IMAGES_DIR
-              value: "/app/pictures"
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /config.yaml
+              name: config
+              subPath: config.yaml
 
 ---
 apiVersion: v1
@@ -51,9 +50,8 @@ spec:
     - name: app-port
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: app-port
   selector:
     app: goautowp
   sessionAffinity: None
   type: ClusterIP
-
