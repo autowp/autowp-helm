@@ -146,5 +146,5 @@ return [
     ],
     'rabbitmq'        => [
         'host'     => {{ include "autowp.rabbitmq.fullname" . | quote }},
-    ]
+    ],
 ];
