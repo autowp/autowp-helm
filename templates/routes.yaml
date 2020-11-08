@@ -129,7 +129,14 @@ spec:
             service:
               name: goautowp
               port:
-                number: 80
+                name: app-port
+        - path: /api/brands/icons
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp
+              port:
+                name: app-port
   {{- end }}
 
 ---

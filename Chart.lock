@@ -1,0 +1,9 @@
+dependencies:
+- name: memcached
+  repository: https://charts.helm.sh/stable
+  version: 3.2.3
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 7.7.1
+digest: sha256:28796fbcb77e2dcf9855448d2d5723b36acdb18acc7929b76f1c0e275424bb51
+generated: "2020-11-08T03:46:42.546352708+03:00"

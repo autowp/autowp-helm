@@ -23,7 +23,7 @@ spec:
             - name: GIN_MODE
               value: "release"
             - name: TRAFFIC_RABBITMQ_HOST
-              value: "rabbitmq"
+              value: {{ include "autowp.rabbitmq.fullname" . }}
             - name: TRAFFIC_RABBITMQ_PORT
               value: "5672"
             - name: TRAFFIC_MONITORING_QUEUE

@@ -92,3 +92,15 @@ backup:
   s3AccessKey: "key"
   s3Secret: "secret"
   s3Bucket: "bucket"
+
+memcached:
+  enabled: true
+  replicaCount: 3
+
+rabbitmq:
+  enabled: true
+  replicaCount: 1
+  persistence:
+    enabled: true
+    storageClass: autowp-rabbitmq
+

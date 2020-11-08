@@ -1,3 +1,10 @@
+apiVersion: v1
+data: {{ (tpl (.Files.Glob "configs/backend/*").AsConfig . ) | nindent 2 }}
+kind: ConfigMap
+metadata:
+  name: backend
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,7 +18,14 @@ spec:
     metadata:
       labels:
         app: backend
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/backend/*").AsConfig . ) | sha256sum }}
     spec:
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: backend
+          name: config
       containers:
         - name: backend
           image: autowp/autowp
@@ -19,112 +33,10 @@ spec:
           ports:
             - name: app-port
               containerPort: 80
-          env:
-            - name: AUTOWP_DB_HOST
-              value: "mysql"
-            - name: AUTOWP_DB_PORT
-              value: "3306"
-            - name: AUTOWP_DB_USERNAME
-              value: {{ .Values.mysql.username | quote }}
-            - name: AUTOWP_DB_PASSWORD
-              value: {{ .Values.mysql.password | quote }}
-            - name: AUTOWP_DB_DBNAME
-              value: "autowp"
-            - name: AUTOWP_USERS_SALT
-              value: {{ .Values.usersSalt | quote }}
-            - name: AUTOWP_EMAIL_SALT
-              value: {{ .Values.emailSalt | quote }}
-            - name: AUTOWP_MEMCACHED_HOST
-              value: "memcached"
-            - name: AUTOWP_HOST
-              value: "wheelsage.org"
-            - name: AUTOWP_HOST_RU
-              value: "www.autowp.ru"
-            - name: AUTOWP_PICTURES_HOST
-              value: "i.wheelsage.org"
-            - name: AUTOWP_MOSTS_MIN_VEHICLES_COUNT
-              value: "200"
-            - name: AUTOWP_MAIL_TYPE
-              value: "smtp"
-            - name: AUTOWP_MAIL_SMTP_HOST
-              value: {{ .Values.smtp.hostname | quote }}
-            - name: AUTOWP_MAIL_SMTP_USERNAME
-              value: {{ .Values.smtp.username | quote }}
-            - name: AUTOWP_MAIL_SMTP_PASSWORD
-              value: {{ .Values.smtp.password | quote }}
-            - name: AUTOWP_TELEGRAM_ACCESS_TOKEN
-              value: {{ .Values.telegram.accessToken | quote }}
-            - name: AUTOWP_TELEGRAM_TOKEN
-              value: {{ .Values.telegram.webhookToken | quote }}
-            - name: AUTOWP_TWITTER_USERNAME
-              value: {{ .Values.twitter.username | quote}}
-            - name: AUTOWP_TWITTER_OAUTH_KEY
-              value: {{ .Values.twitter.key | quote}}
-            - name: AUTOWP_TWITTER_OAUTH_SECRET
-              value: {{ .Values.twitter.secret | quote}}
-            - name: AUTOWP_TWITTER_TOKEN_OAUTH
-              value: {{ .Values.twitter.oauthToken | quote}}
-            - name: AUTOWP_TWITTER_TOKEN_OAUTH_SECRET
-              value: {{ .Values.twitter.oauthSecret | quote}}
-            - name: AUTOWP_FACEBOOK_APP_ID
-              value: {{ .Values.facebook.clientId | quote }}
-            - name: AUTOWP_FACEBOOK_APP_SECRET
-              value: {{ .Values.facebook.clientSecret | quote }}
-            - name: AUTOWP_FACEBOOK_PAGE_ACCESS_TOKEN
-              value: {{ .Values.facebook.pageAccessToken | quote}}
-            - name: AUTOWP_YANDEX_SECRET
-              value: {{ .Values.yandexMoney.secret | quote }}
-            - name: AUTOWP_YANDEX_PRICE
-              value: {{ .Values.yandexMoney.price | quote }}
-            - name: AUTOWP_VK_TOKEN
-              value: {{ .Values.vk.token | quote }}
-            - name: AUTOWP_VK_OWNER_ID
-              value: {{ .Values.vk.ownerId | quote }}
-            - name: AUTOWP_ELS_VK_CLIENTID
-              value: {{ .Values.vk.clientId | quote }}
-            - name: AUTOWP_ELS_VK_SECRET
-              value: {{ .Values.vk.clientSecret | quote }}
-            - name: AUTOWP_ELS_GOOGLEPLUS_CLIENTID
-              value: {{ .Values.google.clientId | quote }}
-            - name: AUTOWP_ELS_GOOGLEPLUS_SECRET
-              value: {{ .Values.google.clientSecret | quote }}
-            - name: AUTOWP_ELS_FACEBOOK_CLIENTID
-              value: {{ .Values.facebook.clientId | quote }}
-            - name: AUTOWP_ELS_FACEBOOK_SECRET
-              value: {{ .Values.facebook.clientSecret | quote }}
-            - name: AUTOWP_CAPTCHA
-              value: "1"
-            - name: AUTOWP_RECAPTCHA_PUBLICKEY
-              value: {{ .Values.reCaptcha.publicKey }}
-            - name: AUTOWP_RECAPTCHA_PRIVATEKEY
-              value: {{ .Values.reCaptcha.privateKey }}
-            - name: SENTRY_DSN
-              value: {{ .Values.backend.sentry.dsn | quote }}
-            - name: SENTRY_ENVIRONMENT
-              value: "production"
-            - name: TRAFFIC_URL
-              value: "http://traffic"
-            - name: AUTOWP_FORCE_HTTPS
-              value: "1"
-            - name: AUTOWP_S3_KEY
-              value: {{ .Values.s3.key | quote }}
-            - name: AUTOWP_S3_SECRET
-              value: {{ .Values.s3.secret | quote }}
-            - name: AUTOWP_S3_ENDPOINT
-              value: {{ join ";" .Values.s3.endpoints | quote }}
-            - name: AUTOWP_IMAGE_FORMAT_BUCKET
-              value: "format"
-            - name: AUTOWP_IMAGE_MUSEUM_BUCKET
-              value: "museum"
-            - name: AUTOWP_IMAGE_USER_BUCKET
-              value: "user"
-            - name: AUTOWP_IMAGE_BRAND_BUCKET
-              value: "brand"
-            - name: AUTOWP_IMAGE_PICTURE_BUCKET
-              value: "picture"
-            - name: AUTOWP_AUTH_SECRET
-              value: {{ .Values.auth.secret | quote}}
-
+          volumeMounts:
+            - mountPath: /app/config/autoload/local.php
+              name: config
+              subPath: local.php
 ---
 apiVersion: v1
 kind: Service
@@ -137,7 +49,7 @@ spec:
     - name: app-port
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: app-port
   selector:
     app: backend
   sessionAffinity: None
