@@ -27,16 +27,23 @@ spec:
             name: backend
           name: config
       containers:
-        - name: backend
+        - name: php-fpm
           image: autowp/autowp
           imagePullPolicy: Always
           ports:
-            - name: app-port
-              containerPort: 80
+            - name: php-fpm-port
+              containerPort: 9000
           volumeMounts:
             - mountPath: /app/config/autoload/local.php
               name: config
               subPath: local.php
+        - name: nginx
+          image: autowp/autowp:nginx
+          imagePullPolicy: Always
+          ports:
+            - name: app-port
+              containerPort: 8080
+
 ---
 apiVersion: v1
 kind: Service
