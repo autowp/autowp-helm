@@ -9,13 +9,17 @@ spec:
       template:
         metadata:
           annotations:
-            checksum/config: {{ (tpl (.Files.Glob "configs/backend/*").AsConfig . ) | sha256sum }}
+            checksum/config: {{ (tpl (.Files.Glob "configs/{backend,casbin}/*").AsConfig . ) | sha256sum }}
         spec:
           volumes:
           - configMap:
               defaultMode: 420
               name: backend
             name: config
+          - configMap:
+              defaultMode: 420
+              name: casbin
+            name: casbin
           containers:
             - name: maintenance
               image: autowp/autowp
@@ -28,5 +32,11 @@ spec:
                 - mountPath: /app/config/autoload/local.php
                   name: config
                   subPath: local.php
+                - mountPath: /app/module/Application/config/model.conf
+                  name: casbin
+                  subPath: model.conf
+                - mountPath: /app/module/Application/config/policy.csv
+                  name: casbin
+                  subPath: policy.csv
           restartPolicy: OnFailure
   concurrencyPolicy: Forbid

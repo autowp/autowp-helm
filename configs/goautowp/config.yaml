@@ -18,3 +18,5 @@ file_storage:
       {{- range .Values.s3.endpoints }}
       - {{ . | quote}}
       {{- end }}
+oauth:
+  secret: {{ .Values.auth.secret | quote }}

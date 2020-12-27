@@ -128,7 +128,7 @@ return [
     'telegram'           => [
         'accessToken' => {{ .Values.telegram.accessToken | quote }},
         'token'       => {{ .Values.telegram.webhookToken | quote }},
-        'webhook'     => {{ (printf "https://www.autowp.ru/telegram/webhook/token/%s" .Values.telegram.webhookToken) | quote }},
+        'webhook'     => {{ (printf "https://www.autowp.ru/api/telegram/webhook/token/%s" .Values.telegram.webhookToken) | quote }},
     ],
     'mail'                     => [
         'transport' => [

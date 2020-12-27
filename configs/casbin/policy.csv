@@ -1,0 +1,163 @@
+p, admin, attrs, edit
+p, admin, car, edit_meta
+p, admin, comment, remove
+p, admin, hotlinks, manage
+p, admin, hotlinks, view
+p, admin, picture, restore
+p, admin, picture, unaccept
+p, admin, picture, flop
+p, admin, picture, normalize
+p, admin, rights, edit
+p, admin, specifications, admin
+p, admin, specifications, edit-engine
+p, admin, user, ban
+p, admin, user, delete
+p, brands-moder, brand, logo
+p, cars-moder, car, add
+p, cars-moder, car, edit_meta
+p, cars-moder, car, move
+p, cars-moder, specifications, edit-engine
+p, comments-writer, comment, add
+p, forums-moder, forums, moderate
+p, green-user, status, be-green
+p, moder, global, moderate
+p, moder, global, unlimited-traffic
+p, moder, user, ip
+p, pages-admin, pages, moderate
+p, pictures-moder, picture, remove_by_vote
+p, pictures-moder, picture, unaccept
+p, pictures-moder, picture, accept
+p, pictures-moder, picture, crop
+p, pictures-moder, picture, moder_vote
+p, pictures-moder, picture, move
+p, pictures-moder, picture, normalize
+p, pictures-moder, picture, flop
+p, user, specifications, edit
+p, user, comment, moderator-attention
+
+p, full-moder, comment, remove
+p, full-moder, user, ban
+
+p, belyaev, comment, remove
+p, belyaev, user, ban
+
+p, car_maniac, comment, remove
+p, mpower, comment, remove
+p, sbc, comment, remove
+p, sergey, comment, remove
+p, sbocha, comment, remove
+p, srt, comment, remove
+
+g, moder, green-user
+
+g, brands-moder, moder
+g, cars-moder, moder
+g, forums-moder, moder
+g, pictures-moder, moder
+
+g, admin, articles-moder
+g, admin, brands-moder
+g, admin, cars-moder
+g, admin, forums-moder
+g, admin, pages-admin
+g, admin, pictures-moder
+g, admin, user
+
+g, user, comments-writer
+g, green-user, user
+
+g, full-moder, brands-moder
+g, full-moder, cars-moder
+g, full-moder, forums-moder
+g, full-moder, pictures-moder
+g, full-moder, user
+
+g, anatoly_k, full-moder
+g, bad_q, full-moder
+g, webber, full-moder
+
+g, belyaev, brands-moder
+g, belyaev, cars-moder
+g, belyaev, forums-moder
+g, belyaev, pictures-moder
+g, belyaev, user
+
+g, cadillac, brands-moder
+g, cadillac, cars-moder
+g, cadillac, pictures-moder
+g, cadillac, user
+
+g, car_maniac, brands-moder
+g, car_maniac, cars-moder
+g, car_maniac, forums-moder
+g, car_maniac, pictures-moder
+g, car_maniac, user
+
+g, carvad, brands-moder
+g, carvad, cars-moder
+g, carvad, pictures-moder
+g, carvad, user
+
+g, chronicle, brands-moder
+g, chronicle, cars-moder
+g, chronicle, pictures-moder
+g, chronicle, user
+
+g, juliano-scotini, brands-moder
+g, juliano-scotini, cars-moder
+g, juliano-scotini, pictures-moder
+g, juliano-scotini, user
+
+g, grebdeni, cars-moder
+g, grebdeni, pictures-moder
+g, grebdeni, user
+
+g, hadrien, pictures-moder
+g, hadrien, cars-moder
+g, hadrien, user
+
+g, lisovsky, pictures-moder
+g, lisovsky, cars-moder
+g, lisovsky, user
+
+g, mpower, brands-moder
+g, mpower, cars-moder
+g, mpower, pictures-moder
+g, mpower, user
+
+g, porlamfer, brands-moder
+g, porlamfer, cars-moder
+g, porlamfer, pictures-moder
+g, porlamfer, user
+
+g, sbocha, brands-moder
+g, sbocha, cars-moder
+g, sbocha, pictures-moder
+g, sbocha, user
+
+g, sergey, brands-moder
+g, sergey, cars-moder
+g, sergey, pictures-moder
+g, sergey, user
+
+g, sbc, cars-moder
+g, sbc, pictures-moder
+g, sbc, user
+
+g, srt, cars-moder
+g, srt, pictures-moder
+g, srt, user
+
+g, da3-driver, cars-moder
+g, da3-driver, pictures-moder
+g, da3-driver, user
+
+g, titov, cars-moder
+g, titov, pictures-moder
+g, titov, user
+
+g, ushakov, brands-moder
+g, ushakov, cars-moder
+g, ushakov, pictures-moder
+g, ushakov, user
+

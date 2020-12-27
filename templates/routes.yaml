@@ -86,14 +86,14 @@ spec:
             service:
               name: backend
               port:
-                number: 80
+                name: app-port
         - path: /pictures/
           pathType: Prefix
           backend:
             service:
               name: backend
               port:
-                number: 80
+                name: app-port
         - path: /img/
           pathType: Prefix
           backend:

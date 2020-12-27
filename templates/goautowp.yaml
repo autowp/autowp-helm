@@ -19,13 +19,17 @@ spec:
       labels:
         app: goautowp
       annotations:
-        checksum/config: {{ (tpl (.Files.Glob "configs/goautowp/*").AsConfig . ) | sha256sum }}
+        checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
       volumes:
         - configMap:
             defaultMode: 420
             name: goautowp
           name: config
+        - configMap:
+            defaultMode: 420
+            name: casbin
+          name: casbin
       containers:
         - name: goautowp
           image: autowp/goautowp
@@ -37,6 +41,12 @@ spec:
             - mountPath: /config.yaml
               name: config
               subPath: config.yaml
+            - mountPath: /model.conf
+              name: casbin
+              subPath: model.conf
+            - mountPath: /policy.csv
+              name: casbin
+              subPath: policy.csv
 
 ---
 apiVersion: v1
