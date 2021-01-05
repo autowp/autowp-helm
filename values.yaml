@@ -10,6 +10,9 @@ auth:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
   secret: 1234567890abcdef1234567890abcdef
+  postgres:
+    username: auth
+    password: password
 
 redirects:
   - from:
@@ -82,10 +85,15 @@ s3:
 goautowp:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
+  postgres:
+    password: password
 
 traffic:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
+  postgres:
+    username: traffic
+    password: password
 
 backup:
   s3Hostname: "s3.example.com"
@@ -104,3 +112,6 @@ rabbitmq:
     enabled: true
     storageClass: autowp-rabbitmq
 
+postgres:
+  hostname: 127.0.0.1
+  port: 5432

@@ -1,3 +1,10 @@
+apiVersion: v1
+data: {{ (tpl (.Files.Glob "configs/traffic/*").AsConfig . ) | nindent 2 }}
+kind: ConfigMap
+metadata:
+  name: traffic
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,31 +18,25 @@ spec:
     metadata:
       labels:
         app: traffic
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/traffic/*").AsConfig . ) | sha256sum }}
     spec:
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: traffic
+          name: config
       containers:
         - name: traffic
           image: autowp/traffic
           imagePullPolicy: Always
           ports:
             - name: app-port
-              containerPort: 80
-          env:
-            - name: GIN_MODE
-              value: "release"
-            - name: TRAFFIC_RABBITMQ_HOST
-              value: {{ include "autowp.rabbitmq.fullname" . }}
-            - name: TRAFFIC_RABBITMQ_PORT
-              value: "5672"
-            - name: TRAFFIC_MONITORING_QUEUE
-              value: "input"
-            - name: TRAFFIC_HOTLINK_QUEUE
-              value: "hotlink"
-            - name: TRAFFIC_MYSQL_DSN
-              value: "root:password@tcp(traffic-mysql:3306)/traffic?charset=utf8mb4&parseTime=true&loc=UTC"
-            - name: TRAFFIC_MIGRATIONS_DSN
-              value: "mysql://root:password@tcp(traffic-mysql)/traffic?charset=utf8mb4&parseTime=true&loc=UTC"
-            - name: TRAFFIC_SENTRY_DSN
-              value: {{ .Values.traffic.sentry.dsn | quote }}
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /config.yaml
+              name: config
+              subPath: config.yaml
 
 ---
 apiVersion: v1
@@ -47,9 +48,9 @@ metadata:
 spec:
   ports:
     - name: app-port
-      port: 80
+      port: 8080
       protocol: TCP
-      targetPort: 80
+      targetPort: app-port
   selector:
     app: traffic
   sessionAffinity: None

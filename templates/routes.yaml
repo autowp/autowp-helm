@@ -130,7 +130,21 @@ spec:
               name: goautowp
               port:
                 name: app-port
+        - path: /api/acl/is-allowed
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp
+              port:
+                name: app-port
         - path: /api/brands/icons
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp
+              port:
+                name: app-port
+        - path: /api/comment/votes
           pathType: Prefix
           backend:
             service:

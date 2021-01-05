@@ -147,4 +147,7 @@ return [
     'rabbitmq'        => [
         'host'     => {{ include "autowp.rabbitmq.fullname" . | quote }},
     ],
+    'traffic'                  => [
+        'url' => 'http://traffic:8080',
+    ],
 ];

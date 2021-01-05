@@ -1,2 +1,3 @@
 volumes.yaml
 values.production.yaml
+auth.dump.sql
