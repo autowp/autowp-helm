@@ -127,35 +127,42 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: goautowp
+              name: goautowp-serve-public
               port:
                 name: app-port
         - path: /api/acl/is-allowed
           pathType: Prefix
           backend:
             service:
-              name: goautowp
+              name: goautowp-serve-public
               port:
                 name: app-port
         - path: /api/brands/icons
           pathType: Prefix
           backend:
             service:
-              name: goautowp
+              name: goautowp-serve-public
               port:
                 name: app-port
         - path: /api/comment/votes
           pathType: Prefix
           backend:
             service:
-              name: goautowp
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /api/traffic
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
               port:
                 name: app-port
         - path: /api/vehicle-types
           pathType: Prefix
           backend:
             service:
-              name: goautowp
+              name: goautowp-serve-public
               port:
                 name: app-port
   {{- end }}

@@ -37,6 +37,7 @@ spec:
             - mountPath: /config.yaml
               name: config
               subPath: config.yaml
+              readOnly: true
 
 ---
 apiVersion: v1

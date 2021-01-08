@@ -41,12 +41,15 @@ spec:
             - mountPath: /app/config/autoload/local.php
               name: config
               subPath: local.php
+              readOnly: true
             - mountPath: /app/module/Application/config/model.conf
               name: casbin
               subPath: model.conf
+              readOnly: true
             - mountPath: /app/module/Application/config/policy.csv
               name: casbin
               subPath: policy.csv
+              readOnly: true
         - name: nginx
           image: autowp/autowp:nginx
           imagePullPolicy: Always

@@ -115,44 +115,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: autowp-traffic-mysql
-spec:
-  capacity:
-    storage: 500Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: autowp-traffic-mysql
-  local:
-    path: /root/docker/autowp.ru/traffic-mysql/data
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - autowp
-
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: traffic-mysql
-  namespace: autowp
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: autowp-traffic-mysql
-  resources:
-    requests:
-      storage: 500Gi
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
   name: autowp-auth-postgres
 spec:
   capacity:

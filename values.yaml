@@ -89,8 +89,6 @@ goautowp:
     password: password
 
 traffic:
-  sentry:
-    dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
   postgres:
     username: traffic
     password: password

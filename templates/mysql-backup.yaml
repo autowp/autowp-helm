@@ -39,5 +39,6 @@ spec:
               - mountPath: /.s3cfg
                 name: config
                 subPath: .s3cfg
+                readOnly: true
           restartPolicy: OnFailure
   concurrencyPolicy: Forbid

@@ -148,6 +148,6 @@ return [
         'host'     => {{ include "autowp.rabbitmq.fullname" . | quote }},
     ],
     'traffic'                  => [
-        'url' => 'http://traffic:8080',
+        'url' => 'http://goautowp-serve-private:8081',
     ],
 ];
