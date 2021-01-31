@@ -48,6 +48,7 @@ vk:
 
 smtp:
   hostname: "example.com"
+  port: 465
   username: "no-reply@autowp.ru"
   password: "password"
 
@@ -78,9 +79,18 @@ s3:
   key: "key"
   secret: "secret"
   endpoints:
-  - https://n1.example.com
-  - https://n2.example.com
-  - https://n3.example.com
+    - name: n1
+      hostname: n1.example.com
+      address: 192.168.0.1
+      visible: true
+    - name: n2
+      hostname: n1.example.com
+      address: 192.168.0.2
+      visible: true
+    - name: n3
+      hostname: n1.example.com
+      address: 192.168.0.3
+      visible: false
 
 goautowp:
   sentry:
@@ -113,3 +123,6 @@ rabbitmq:
 postgres:
   hostname: 127.0.0.1
   port: 5432
+
+feedback:
+  to: autowp@gmail.com

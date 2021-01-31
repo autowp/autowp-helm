@@ -123,13 +123,6 @@ spec:
   - host: {{ . }}
     http:
       paths:
-        - path: /go-api/
-          pathType: Prefix
-          backend:
-            service:
-              name: goautowp-serve-public
-              port:
-                name: app-port
         - path: /api/acl/is-allowed
           pathType: Prefix
           backend:
@@ -145,6 +138,41 @@ spec:
               port:
                 name: app-port
         - path: /api/comment/votes
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /api/contacts
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /api/feedback
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /api/ip
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /api/perspective
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /api/recaptcha
           pathType: Prefix
           backend:
             service:

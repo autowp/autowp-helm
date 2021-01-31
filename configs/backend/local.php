@@ -36,7 +36,9 @@ return [
         's3'          => [
             'endpoint'    => [
                 {{- range .Values.s3.endpoints }}
-                  {{ . | quote}},
+                    {{- if .visible }}
+                    {{ printf "https://%s" .hostname | quote}},
+                    {{- end }}
                 {{- end }}
             ],
             'credentials' => [
@@ -49,7 +51,9 @@ return [
         's3'          => [
             'endpoint'    => [
                 {{- range .Values.s3.endpoints }}
-                  {{ . | quote}},
+                {{- if .visible }}
+                    {{ printf "https://%s" .hostname | quote}},
+                {{- end }}
                 {{- end }}
             ],
             'credentials' => [
@@ -149,5 +153,8 @@ return [
     ],
     'traffic'                  => [
         'url' => 'http://goautowp-serve-private:8081',
+    ],
+    'feedback'                 => [
+        'to' => {{ .Values.feedback.to | quote }},
     ],
 ];

@@ -1,5 +1,5 @@
+gin-mode: "release"
 public-rest:
-  mode: "debug"
   listen: ":8080"
 sentry:
   dsn: {{ .Values.goautowp.sentry.dsn | quote }}
@@ -16,15 +16,29 @@ file_storage:
   s3:
     endpoints:
       {{- range .Values.s3.endpoints }}
-      - {{ . | quote}}
+      {{- if (.visible)}}
+      - {{ printf "https://%s" .hostname | quote}}
+      {{- end }}
       {{- end }}
 oauth:
   secret: {{ .Values.auth.secret | quote }}
-
 private-rest:
-  mode: "debug"
   listen: ":8081"
 rabbitmq: amqp://guest:guest@{{ include "autowp.rabbitmq.fullname" . }}:5672/
 traffic-dsn: postgres://{{ .Values.traffic.postgres.username }}:{{ .Values.traffic.postgres.password }}@{{ .Values.postgres.hostname }}:{{ .Values.postgres.port }}/traffic?sslmode=disable
 traffic-migrations:
   dsn: postgres://{{ .Values.traffic.postgres.username }}:{{ .Values.traffic.postgres.password }}@{{ .Values.postgres.hostname }}/traffic?sslmode=disable
+recaptcha:
+  public-key: {{ .Values.reCaptcha.publicKey }}
+  private-key: {{ .Values.reCaptcha.privateKey }}
+smtp:
+  username: {{ .Values.smtp.username | quote }}
+  password: {{ .Values.smtp.password | quote }}
+  hostname: {{ .Values.smtp.hostname | quote }}
+  port: {{ .Values.smtp.port }}
+feedback:
+  captcha: true
+  from: Robot autowp.ru <no-reply@autowp.ru>
+  to:
+    - {{ .Values.feedback.to | quote}}
+  subject: AutoWP Feedback
