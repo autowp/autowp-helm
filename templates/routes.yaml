@@ -165,13 +165,6 @@ spec:
               name: goautowp-serve-public
               port:
                 name: app-port
-        - path: /api/perspective
-          pathType: Prefix
-          backend:
-            service:
-              name: goautowp-serve-public
-              port:
-                name: app-port
         - path: /api/recaptcha
           pathType: Prefix
           backend:
@@ -187,6 +180,13 @@ spec:
               port:
                 name: app-port
         - path: /api/vehicle-types
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: /goautowp.Autowp
           pathType: Prefix
           backend:
             service:
