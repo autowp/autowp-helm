@@ -123,7 +123,7 @@ spec:
   - host: {{ . }}
     http:
       paths:
-        - path: /goautowp.Autowp
+        - path: /goautowp.
           pathType: Prefix
           backend:
             service:

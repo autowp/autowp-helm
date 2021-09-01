@@ -42,3 +42,32 @@ feedback:
   to:
     - {{ .Values.feedback.to | quote}}
   subject: AutoWP Feedback
+keycloak:
+  url: https://auth.wheelsage.org
+  realm: autowp
+  client-id: autowp
+  client-secret: {{ .Values.keycloak.clientSecret | quote }}
+email-salt: {{ .Values.emailSalt | quote }}
+users-salt: {{ .Values.usersSalt | quote }}
+languages:
+  en:
+    hostname: en.wheelsage.org
+    aliases :
+      - wheelsage.org
+      - www.wheelsage.org
+  zh:
+    hostname: zh.wheelsage.org
+  ru:
+    hostname: www.autowp.ru
+  pt-br:
+    hostname: br.wheelsage.org
+  fr:
+    hostname: fr.wheelsage.org
+  be:
+    hostname: be.wheelsage.org
+  uk:
+    hostname: uk.wheelsage.org
+  es:
+    hostname: es.wheelsage.org
+captcha: true
+mock-email-sender: false

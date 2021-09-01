@@ -94,6 +94,9 @@ return [
         'uk'    => [
             'hostname' => 'uk.wheelsage.org',
         ],
+        'es'    => [
+            'hostname' => 'es.wheelsage.org',
+        ],
     ],
     'authSecret' => {{ .Values.auth.secret | quote}},
     'sentry'                   => [

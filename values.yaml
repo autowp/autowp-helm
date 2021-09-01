@@ -127,3 +127,6 @@ postgres:
 
 feedback:
   to: autowp@gmail.com
+
+keycloak:
+  clientSecret: secret
