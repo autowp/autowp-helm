@@ -20,8 +20,6 @@ file_storage:
       - {{ printf "https://%s" .hostname | quote}}
       {{- end }}
       {{- end }}
-oauth:
-  secret: {{ .Values.auth.secret | quote }}
 private-rest:
   listen: ":8081"
 rabbitmq: amqp://guest:guest@{{ include "autowp.rabbitmq.fullname" . }}:5672/
@@ -71,3 +69,19 @@ languages:
     hostname: es.wheelsage.org
 captcha: true
 mock-email-sender: false
+auth:
+  migrations:
+    dsn: postgres://{{ .Values.auth.postgres.username }}:{{ .Values.auth.postgres.password }}@{{ .Values.postgres.hostname }}/auth?sslmode=disable
+  oauth:
+    dsn: postgres://{{ .Values.auth.postgres.username }}:{{ .Values.auth.postgres.password }}@{{ .Values.postgres.hostname }}:{{ .Values.postgres.port }}/auth?sslmode=disable
+    secret: {{ .Values.auth.secret | quote }}
+  services:
+    google:
+      client_id: {{ .Values.google.clientId | quote }}
+      client_secret: {{ .Values.google.clientSecret | quote }}
+    facebook:
+      client_id: {{ .Values.facebook.clientId | quote }}
+      client_secret: {{ .Values.facebook.clientSecret | quote }}
+    vk:
+      client_id: {{ .Values.vk.clientId | quote }}
+      client_secret: {{ .Values.vk.clientSecret | quote }}

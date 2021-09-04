@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goautowp-serve-public
+spec:
+  selector:
+    matchLabels:
+      app: goautowp-serve-public
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: goautowp-serve-public
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
+    spec:
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: goautowp
+          name: config
+        - configMap:
+            defaultMode: 420
+            name: casbin
+          name: casbin
+      containers:
+        - name: goautowp-serve-public
+          image: autowp/goautowp
+          imagePullPolicy: Always
+          args:
+            - serve-public
+          ports:
+            - name: app-port
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /config.yaml
+              name: config
+              subPath: config.yaml
+              readOnly: true
+            - mountPath: /model.conf
+              name: casbin
+              subPath: model.conf
+              readOnly: true
+            - mountPath: /policy.csv
+              name: casbin
+              subPath: policy.csv
+              readOnly: true
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: goautowp-serve-public
+  name: goautowp-serve-public
+spec:
+  ports:
+    - name: app-port
+      port: 8080
+      protocol: TCP
+      targetPort: app-port
+  selector:
+    app: goautowp-serve-public
+  sessionAffinity: None
+  type: ClusterIP

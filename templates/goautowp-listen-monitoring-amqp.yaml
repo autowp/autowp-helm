@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goautowp-listen-monitoring-amqp
+spec:
+  selector:
+    matchLabels:
+      app: goautowp-listen-monitoring-amqp
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: goautowp-listen-monitoring-amqp
+      annotations:
+        checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
+    spec:
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: goautowp
+          name: config
+        - configMap:
+            defaultMode: 420
+            name: casbin
+          name: casbin
+      containers:
+        - name: goautowp-listen-monitoring-amqp
+          image: autowp/goautowp
+          imagePullPolicy: Always
+          args:
+            - listen-monitoring-amqp
+          volumeMounts:
+            - mountPath: /config.yaml
+              name: config
+              subPath: config.yaml
+              readOnly: true
+            - mountPath: /model.conf
+              name: casbin
+              subPath: model.conf
+              readOnly: true
+            - mountPath: /policy.csv
+              name: casbin
+              subPath: policy.csv
+              readOnly: true
