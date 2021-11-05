@@ -85,3 +85,12 @@ auth:
     vk:
       client_id: {{ .Values.vk.clientId | quote }}
       client_secret: {{ .Values.vk.clientSecret | quote }}
+image-storage:
+  s3:
+    endpoint: https://s38.wheelsage.org
+    credentials:
+      key: {{ .Values.s3.key | quote }}
+      secret: {{ .Values.s3.secret | quote }}
+    use_path_style_endpoint: true
+memcached:
+  - "autowp-memcached:11211"

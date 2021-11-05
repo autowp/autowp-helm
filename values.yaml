@@ -112,7 +112,7 @@ backup:
 
 memcached:
   enabled: true
-  replicaCount: 3
+  replicaCount: 2
 
 rabbitmq:
   enabled: true
