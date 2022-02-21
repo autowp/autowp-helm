@@ -10,23 +10,19 @@ return [
     ],
     'caches' => [
         'fastCache' => [
-            'adapter' => [
-                'options'  => [
-                    'servers'   => [
-                        'main' => [
-                            'host' => {{ include "autowp.memcached.fullname" . | quote }},
-                        ],
+            'options'  => [
+                'servers'   => [
+                    'main' => [
+                        'host' => {{ include "common.names.fullname" .Subcharts.memcached | quote }},
                     ],
                 ],
             ],
         ],
         'longCache' => [
-            'adapter' => [
-                'options'  => [
-                    'servers'   => [
-                        'main' => [
-                            'host' => {{ include "autowp.memcached.fullname" . | quote }},
-                        ],
+            'options'  => [
+                'servers'   => [
+                    'main' => [
+                        'host' => {{ include "common.names.fullname" .Subcharts.memcached | quote }},
                     ],
                 ],
             ],
@@ -98,7 +94,6 @@ return [
             'hostname' => 'es.wheelsage.org',
         ],
     ],
-    'authSecret' => {{ .Values.auth.secret | quote}},
     'sentry'                   => [
         'dsn'         => {{ .Values.backend.sentry.dsn | quote }},
         'environment' => 'production',
@@ -159,5 +154,9 @@ return [
     ],
     'feedback'                 => [
         'to' => {{ .Values.feedback.to | quote }},
+    ],
+    'keycloak'                 => [
+        'url'   => "https://auth.wheelsage.org",
+        'realm' => "autowp",
     ],
 ];

@@ -41,9 +41,9 @@ feedback:
     - {{ .Values.feedback.to | quote}}
   subject: AutoWP Feedback
 keycloak:
-  url: https://auth.wheelsage.org
-  realm: autowp
-  client-id: autowp
+  url: "https://auth.wheelsage.org"
+  realm: "autowp"
+  client-id: "autowp"
   client-secret: {{ .Values.keycloak.clientSecret | quote }}
 email-salt: {{ .Values.emailSalt | quote }}
 users-salt: {{ .Values.usersSalt | quote }}
@@ -69,22 +69,6 @@ languages:
     hostname: es.wheelsage.org
 captcha: true
 mock-email-sender: false
-auth:
-  migrations:
-    dsn: postgres://{{ .Values.auth.postgres.username }}:{{ .Values.auth.postgres.password }}@{{ .Values.postgres.hostname }}/auth?sslmode=disable
-  oauth:
-    dsn: postgres://{{ .Values.auth.postgres.username }}:{{ .Values.auth.postgres.password }}@{{ .Values.postgres.hostname }}:{{ .Values.postgres.port }}/auth?sslmode=disable
-    secret: {{ .Values.auth.secret | quote }}
-  services:
-    google:
-      client_id: {{ .Values.google.clientId | quote }}
-      client_secret: {{ .Values.google.clientSecret | quote }}
-    facebook:
-      client_id: {{ .Values.facebook.clientId | quote }}
-      client_secret: {{ .Values.facebook.clientSecret | quote }}
-    vk:
-      client_id: {{ .Values.vk.clientId | quote }}
-      client_secret: {{ .Values.vk.clientSecret | quote }}
 image-storage:
   s3:
     endpoint: https://s38.wheelsage.org
@@ -93,4 +77,4 @@ image-storage:
       secret: {{ .Values.s3.secret | quote }}
     use_path_style_endpoint: true
 memcached:
-  - "autowp-memcached:11211"
+  - "{{ include "common.names.fullname" .Subcharts.memcached }}:11211"

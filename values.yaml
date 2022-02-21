@@ -112,7 +112,16 @@ backup:
 
 memcached:
   enabled: true
-  replicaCount: 2
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      labels:
+        release: kube-prometheus-stack
 
 rabbitmq:
   enabled: true
