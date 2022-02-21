@@ -34,35 +34,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: goautowp-serve-auth
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/issuer: letsencrypt
-spec:
-  tls:
-    - hosts:
-        {{- range .Values.hostnames }}
-        - {{ . }}
-        {{- end }}
-      secretName: tls
-  rules:
-  {{- range .Values.hostnames }}
-  - host: {{ . }}
-    http:
-      paths:
-        - path: /api/oauth/
-          pathType: Prefix
-          backend:
-            service:
-              name: goautowp-serve-auth
-              port:
-                name: app-port
-  {{- end }}
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
   name: backend
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "100m"
@@ -101,6 +72,13 @@ spec:
               name: static
               port:
                 number: 80
+        - path: /api/oauth/
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
         - path: "/goautowp.Autowp/"
           pathType: Prefix
           backend:
