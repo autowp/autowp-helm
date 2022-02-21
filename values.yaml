@@ -129,6 +129,12 @@ rabbitmq:
   persistence:
     enabled: true
     storageClass: autowp-rabbitmq
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack
 
 postgres:
   hostname: 127.0.0.1
