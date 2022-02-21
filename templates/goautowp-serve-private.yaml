@@ -61,5 +61,4 @@ spec:
       targetPort: app-port
   selector:
     app: goautowp-serve-private
-  sessionAffinity: None
   type: ClusterIP
