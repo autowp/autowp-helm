@@ -14,9 +14,6 @@ spec:
   jobTemplate:
     spec:
       template:
-        metadata:
-          annotations:
-            checksum/config: {{ (tpl (.Files.Glob "configs/mysql-backup/*").AsConfig . ) | sha256sum }}
         spec:
           volumes:
           - configMap:
@@ -29,12 +26,12 @@ spec:
               imagePullPolicy: Always
               env:
               - name: MYSQL_ROOT_PASSWORD
-                value: {{ .Values.mysql.rootPassword | quote }}
+                value: {{ .Values.mysql.auth.rootPassword | quote }}
               command:
                 - /bin/bash
               args:
                 - -c
-                - mysqldump --host=mysql -u{{ .Values.mysql.username }} -p{{ .Values.mysql.password|quote }} --set-gtid-purged=OFF --hex-blob --no-tablespaces autowp | gzip -f | s3cmd -c /.s3cfg put - "s3://{{ .Values.backup.s3Bucket }}/$(date +"%Y-%m-%d_%H-%M-%S").sql.gz" --acl-private --guess-mime-type --no-progress
+                - mysqldump --host={{ include "mysql.primary.fullname" .Subcharts.mysql | quote }} -u{{ .Values.mysql.auth.username }} -p{{ .Values.mysql.auth.password|quote }} --set-gtid-purged=OFF --hex-blob --no-tablespaces autowp | gzip -f | s3cmd -c /.s3cfg put - "s3://{{ .Values.backup.s3Bucket }}/$(date +"%Y-%m-%d_%H-%M-%S").sql.gz" --acl-private --guess-mime-type --no-progress
               volumeMounts:
               - mountPath: /.s3cfg
                 name: config

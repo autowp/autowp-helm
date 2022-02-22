@@ -24,11 +24,6 @@ redirects:
     - wheelsage.org
     to: en.wheelsage.org
 
-mysql:
-  username: username
-  password: password
-  rootPassword: password
-
 emailSalt: salt
 usersSalt: salt
 
@@ -145,3 +140,57 @@ feedback:
 
 keycloak:
   clientSecret: secret
+
+mysql:
+  enabled: true
+  architecture: standalone
+  auth:
+    database: autowp
+    username: username
+    password: password
+    rootPassword: password
+  primary:
+    configuration: |-
+      [mysqld]
+      default_authentication_plugin=caching_sha2_password
+      skip-name-resolve
+      explicit_defaults_for_timestamp
+      basedir=/opt/bitnami/mysql
+      plugin_dir=/opt/bitnami/mysql/lib/plugin
+      port=3306
+      socket=/opt/bitnami/mysql/tmp/mysql.sock
+      datadir=/bitnami/mysql/data
+      tmpdir=/opt/bitnami/mysql/tmp
+      max_allowed_packet=16M
+      bind-address=0.0.0.0
+      pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+      log-error=/opt/bitnami/mysql/logs/mysqld.log
+      character-set-server=UTF8
+      collation-server=utf8_general_ci
+      default-time-zone='UTC'
+      tmp_table_size=2G
+      max_heap_table_size=2G
+      max_connections = 2000
+      innodb_buffer_pool_size=20G
+      [client]
+      port=3306
+      socket=/opt/bitnami/mysql/tmp/mysql.sock
+      default-character-set=UTF8
+      plugin_dir=/opt/bitnami/mysql/lib/plugin
+      [manager]
+      port=3306
+      socket=/opt/bitnami/mysql/tmp/mysql.sock
+      pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+    persistence:
+      enabled: true
+      existingClaim: mysql
+      size: 100Gi
+  secondary:
+    replicaCount: 0
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack

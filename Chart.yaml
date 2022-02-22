@@ -31,3 +31,7 @@ dependencies:
     version: 8.29.1
     repository: https://charts.bitnami.com/bitnami
     condition: rabbitmq.enabled
+  - name: mysql
+    version: 8.8.25
+    repository: https://charts.bitnami.com/bitnami
+    condition: mysql.enabled

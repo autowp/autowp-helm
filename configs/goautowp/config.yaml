@@ -6,11 +6,11 @@ sentry:
   environment: production
 autowp-migrations:
   dir: ./migrations
-  dsn: "mysql://{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp(mysql)/autowp?charset=utf8mb4&parseTime=true&loc=UTC"
+  dsn: "mysql://{{ .Values.mysql.auth.username }}:{{ .Values.mysql.auth.password }}@tcp({{ include "mysql.primary.fullname" .Subcharts.mysql }})/{{ .Values.mysql.auth.database }}?charset=utf8mb4&parseTime=true&loc=UTC"
 duplicate_finder:
   rabbitmq: amqp://guest:guest@{{ include "rabbitmq.fullname" .Subcharts.rabbitmq }}:5672/
   queue: duplicate_finder
-autowp-dsn: "{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp(mysql:3306)/autowp?charset=utf8mb4&parseTime=true&loc=UTC"
+autowp-dsn: "{{ .Values.mysql.auth.username }}:{{ .Values.mysql.auth.password }}@tcp({{ include "mysql.primary.fullname" .Subcharts.mysql }}:3306)/{{ .Values.mysql.auth.database }}?charset=utf8mb4&parseTime=true&loc=UTC"
 file_storage:
   bucket: files
   s3:

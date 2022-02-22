@@ -4,9 +4,10 @@ namespace Application;
 
 return [
     'db'                       => [
-        'dbname'   => 'autowp',
-        'username' => {{ .Values.mysql.username | quote }},
-        'password' => {{ .Values.mysql.password | quote }},
+        'host'     => {{ include "mysql.primary.fullname" .Subcharts.mysql | quote }},
+        'dbname'   => {{ .Values.mysql.auth.database | quote }},
+        'username' => {{ .Values.mysql.auth.username | quote }},
+        'password' => {{ .Values.mysql.auth.password | quote }},
     ],
     'caches' => [
         'fastCache' => [
