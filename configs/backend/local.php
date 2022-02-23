@@ -4,10 +4,10 @@ namespace Application;
 
 return [
     'db'                       => [
-        'host'     => {{ include "mysql.primary.fullname" .Subcharts.mysql | quote }},
-        'dbname'   => {{ .Values.mysql.auth.database | quote }},
-        'username' => {{ .Values.mysql.auth.username | quote }},
-        'password' => {{ .Values.mysql.auth.password | quote }},
+        'host'     => {{ .Values.mysql.host | quote }},
+        'dbname'   => {{ .Values.mysql.database | quote }},
+        'username' => {{ .Values.mysql.username | quote }},
+        'password' => {{ .Values.mysql.password | quote }},
     ],
     'caches' => [
         'fastCache' => [
