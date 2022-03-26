@@ -1,9 +1,9 @@
 dependencies:
 - name: memcached
   repository: https://charts.bitnami.com/bitnami
-  version: 6.0.3
+  version: 6.0.5
 - name: rabbitmq
   repository: https://charts.bitnami.com/bitnami
-  version: 8.29.1
-digest: sha256:77e2c9e45bc04089868d9bc035e5d4a1254bdf9cf3b7dd5df7e00421c2b292df
-generated: "2022-02-23T03:38:51.79739002+03:00"
+  version: 8.30.0
+digest: sha256:260bb17109d6e129bdf590724e91909e14daa7e9d74d3ad5a47168bb1cc17177
+generated: "2022-03-09T00:34:04.009804684+03:00"
