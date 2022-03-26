@@ -12,6 +12,8 @@ spec:
       labels:
         app: static
     spec:
+      imagePullSecrets:
+        - name: regcred
       volumes:
         - name: img
           persistentVolumeClaim:

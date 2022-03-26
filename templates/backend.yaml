@@ -30,6 +30,8 @@ spec:
             defaultMode: 420
             name: casbin
           name: casbin
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: php-fpm
           image: autowp/autowp

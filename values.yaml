@@ -140,4 +140,9 @@ mysql:
   database: database
   username: username
   password: password
-  rootPassword: password
+
+imageCredentials:
+  registry: quay.io
+  username: someone
+  password: sillyness
+  email: someone@host.com

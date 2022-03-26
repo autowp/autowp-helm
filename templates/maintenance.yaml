@@ -11,6 +11,8 @@ spec:
           annotations:
             checksum/config: {{ (tpl (.Files.Glob "configs/{backend,casbin}/*").AsConfig . ) | sha256sum }}
         spec:
+          imagePullSecrets:
+            - name: regcred
           volumes:
           - configMap:
               defaultMode: 420
