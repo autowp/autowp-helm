@@ -78,3 +78,5 @@ image-storage:
     use_path_style_endpoint: true
 memcached:
   - "{{ include "common.names.fullname" .Subcharts.memcached }}:11211"
+telegram:
+  access-token: {{ .Values.telegram.accessToken | quote }}

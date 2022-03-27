@@ -128,6 +128,20 @@ spec:
               name: goautowp-serve-public
               port:
                 name: app-port
+        - path: "/goautowp.Messaging/"
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
+        - path: "/goautowp.Pictures/"
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
         - path: /
           pathType: Prefix
           backend:
