@@ -135,6 +135,13 @@ spec:
               name: goautowp-serve-public
               port:
                 name: app-port
+        - path: "/goautowp.Statistics/"
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
         - path: "/goautowp.Pictures/"
           pathType: Prefix
           backend:
