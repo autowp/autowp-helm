@@ -80,3 +80,10 @@ memcached:
   - "{{ include "common.names.fullname" .Subcharts.memcached }}:11211"
 telegram:
   access-token: {{ .Values.telegram.accessToken | quote }}
+donations-vod-price: {{ .Values.yandexMoney.price }}
+about:
+  developer: "1"
+  fr-translator: "3282"
+  zh-translator: "25155"
+  be-translator: "15603"
+  pt-br-translator: "17322"
