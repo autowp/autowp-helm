@@ -13,10 +13,10 @@ spec:
         app: frontend
     spec:
       imagePullSecrets:
-        - name: regcred
+        - name: gitlab-registry
       containers:
       - name: frontend
-        image: autowp/autowp-frontend
+        image: registry.pereslegin.ru/autowp/frontend:v1.2.0
         imagePullPolicy: Always
         ports:
         - name: app-port
