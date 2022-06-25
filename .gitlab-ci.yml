@@ -1,7 +1,7 @@
 stages:
   - deploy
 
-test:
+deploy:
   image: $CI_REGISTRY/autowp/runner-base-image
   stage: deploy
   script:
