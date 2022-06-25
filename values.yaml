@@ -14,63 +14,51 @@ auth:
   postgres:
     username: auth
     password: password
-
 redirects:
   - from:
-    - autowp.ru
+      - autowp.ru
     to: www.autowp.ru
   - from:
-    - www.wheelsage.org
-    - wheelsage.org
+      - www.wheelsage.org
+      - wheelsage.org
     to: en.wheelsage.org
-
 emailSalt: salt
 usersSalt: salt
-
 google:
   clientId: "1234567890.apps.googleusercontent.com"
   clientSecret: "secret"
-
 facebook:
   clientId: "1234567890"
   clientSecret: "secret"
   pageAccessToken: "access_token"
-
 vk:
   clientId: "1234567890"
   clientSecret: "secret"
   token: "token"
   ownerId: "-1234567890"
-
 smtp:
   hostname: "example.com"
   port: 465
   username: "no-reply@autowp.ru"
   password: "password"
-
 telegram:
   webhookToken: "token"
   accessToken: "1234567890:token"
-
 twitter:
   username: "autowp_ru"
   key: "key"
   secret: "secret"
   oauthToken: "1234567890-token"
   oauthSecret: "secret"
-
 yandexMoney:
   secret: "secret"
   price: "999"
-
 reCaptcha:
   publicKey: "publicKey"
   privateKey: "privateKey"
-
 backend:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
-
 s3:
   key: "key"
   secret: "secret"
@@ -87,18 +75,15 @@ s3:
       hostname: n1.example.com
       address: 192.168.0.3
       visible: false
-
 goautowp:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
   postgres:
     password: password
-
 traffic:
   postgres:
     username: traffic
     password: password
-
 memcached:
   enabled: true
   replicaCount: 1
@@ -111,7 +96,6 @@ memcached:
       enabled: true
       labels:
         release: kube-prometheus-stack
-
 rabbitmq:
   enabled: true
   replicaCount: 1
@@ -124,28 +108,22 @@ rabbitmq:
       enabled: true
       additionalLabels:
         release: kube-prometheus-stack
-
 postgres:
   hostname: 127.0.0.1
   port: 5432
-
 feedback:
   to: autowp@gmail.com
-
 keycloak:
   clientSecret: secret
-
 mysql:
   host: host
   database: database
   username: username
   password: password
-
 imageCredentials:
   registry: quay.io
   username: someone
   password: sillyness
   email: someone@host.com
-
 frontend:
-  version: v1.5.0
+  version: v1.8.4
