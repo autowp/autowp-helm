@@ -5,6 +5,7 @@ test:
   image: $CI_REGISTRY/autowp/runner-base-image
   stage: deploy
   script:
+    - helm dependency update
     - helm dependencies build
     - helm lint
 
