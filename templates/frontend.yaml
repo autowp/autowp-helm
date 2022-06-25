@@ -15,53 +15,35 @@ spec:
       imagePullSecrets:
         - name: gitlab-registry
       containers:
-      - name: frontend
-        image: "registry.pereslegin.ru/autowp/frontend:{{.Values.frontend.version}}"
-        imagePullPolicy: Always
-        ports:
-        - name: app-port
-          containerPort: 8080
-        livenessProbe:
-          httpGet:
-            path: /
-            port: app-port
-            httpHeaders:
-              - name: X-Health
-                value: "Kubernetes-Health"
-              - name: Host
-                value: "www.autowp.ru"
-          initialDelaySeconds: 3
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /
-            port: app-port
-            httpHeaders:
-              - name: X-Health
-                value: "Kubernetes-Health"
-              - name: Host
-                value: "www.autowp.ru"
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        securityContext:
-          runAsNonRoot: true
+        - name: frontend
+          image: "registry.pereslegin.ru/autowp/frontend:v1.8.4"
+          imagePullPolicy: Always
+          ports:
+            - name: app-port
+              containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: app-port
+              httpHeaders:
+                - name: X-Health
+                  value: "Kubernetes-Health"
+                - name: Host
+                  value: "www.autowp.ru"
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: app-port
+              httpHeaders:
+                - name: X-Health
+                  value: "Kubernetes-Health"
+                - name: Host
+                  value: "www.autowp.ru"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            runAsNonRoot: true
       securityContext:
         runAsNonRoot: true
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: frontend
-  name: frontend
-spec:
-  ports:
-    - name: app-port
-      port: 8080
-      protocol: TCP
-      targetPort: app-port
-  selector:
-    app: frontend
-  sessionAffinity: None
-  type: ClusterIP

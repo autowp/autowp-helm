@@ -125,5 +125,3 @@ imageCredentials:
   username: someone
   password: sillyness
   email: someone@host.com
-frontend:
-  version: v1.8.4
