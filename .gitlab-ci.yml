@@ -8,9 +8,6 @@ test:
     - helm dependency update
     - helm lint
 
-    - kubectl config set-credentials autowp-gitlab --token="$K8S_TOKEN"
-    - kubectl config set-context --current --user=autowp-gitlab
-
     - helm diff -n autowp upgrade --install autowp . --reuse-values
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
