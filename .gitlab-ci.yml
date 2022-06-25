@@ -8,7 +8,7 @@ test:
     - helm dependency update
     - helm lint
 
-    - helm diff -n autowp upgrade --install autowp . --reuse-values
+    - helm -n autowp upgrade autowp . --reuse-values
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   environment:
