@@ -23,8 +23,8 @@ file_storage:
 private-rest:
   listen: ":8081"
 rabbitmq: amqp://guest:guest@{{ include "rabbitmq.fullname" .Subcharts.rabbitmq }}:5672/
-traffic-dsn: postgres://{{ .Values.traffic.postgres.username }}:{{ .Values.traffic.postgres.password }}@{{ .Values.postgres.hostname }}:{{ .Values.postgres.port }}/traffic?sslmode=disable
-traffic-migrations:
+postgres-dsn: postgres://{{ .Values.traffic.postgres.username }}:{{ .Values.traffic.postgres.password }}@{{ .Values.postgres.hostname }}:{{ .Values.postgres.port }}/traffic?sslmode=disable
+postgres-migrations:
   dsn: postgres://{{ .Values.traffic.postgres.username }}:{{ .Values.traffic.postgres.password }}@{{ .Values.postgres.hostname }}/traffic?sslmode=disable
 recaptcha:
   public-key: {{ .Values.reCaptcha.publicKey }}
