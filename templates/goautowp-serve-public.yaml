@@ -27,7 +27,7 @@ spec:
           name: casbin
       containers:
         - name: goautowp-serve-public
-          image: registry.pereslegin.ru/autowp/goautowp:v1.6.0
+          image: registry.pereslegin.ru/autowp/goautowp:v1.7.1
           imagePullPolicy: Always
           args:
             - serve-public
