@@ -156,7 +156,7 @@ spec:
               name: goautowp-serve-public
               port:
                 name: app-port
-        - path: "/goautowp.articles/"
+        - path: "/goautowp.Articles/"
           pathType: Prefix
           backend:
             service:
