@@ -24,7 +24,7 @@ spec:
               name: casbin
           containers:
             - name: goautowp-scheduler-midnight
-              image: registry.pereslegin.ru/autowp/goautowp:v1.9.0
+              image: registry.pereslegin.ru/autowp/goautowp:v1.10.0
               imagePullPolicy: Always
               args:
                 - scheduler-midnight
