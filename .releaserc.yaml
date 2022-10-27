@@ -1,0 +1,14 @@
+{
+  "branches": ["master"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/gitlab", {
+      "gitlabUrl": "https://gitlab.pereslegin.ru"
+    }],
+    ["semantic-release-helm", {
+      chartPath: './',
+      registry: 'https://gitlab.pereslegin.ru/api/v4/projects/26/packages/helm/api/stable/charts'
+    }]
+  ]
+}
