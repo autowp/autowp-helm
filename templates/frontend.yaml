@@ -47,3 +47,5 @@ spec:
             runAsNonRoot: true
       securityContext:
         runAsNonRoot: true
+        fsGroup: 101
+        runAsUser: 101
