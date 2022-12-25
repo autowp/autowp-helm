@@ -148,7 +148,7 @@ return [
         ],
     ],
     'rabbitmq'        => [
-        'host'     => {{ include "rabbitmq.fullname" .Subcharts.rabbitmq | quote }},
+        'host'     => {{ include "common.names.fullname" .Subcharts.rabbitmq | quote }},
     ],
     'traffic'                  => [
         'url' => 'http://goautowp-serve-private:8081',
