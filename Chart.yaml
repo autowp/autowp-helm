@@ -24,10 +24,10 @@ appVersion: 2.0.0
 
 dependencies:
   - name: memcached
-    version: 6.1.0
+    version: 6.3.2
     repository: https://charts.bitnami.com/bitnami
     condition: memcached.enabled
   - name: rabbitmq
-    version: 8.30.0
+    version: 11.3.0
     repository: https://charts.bitnami.com/bitnami
     condition: rabbitmq.enabled
