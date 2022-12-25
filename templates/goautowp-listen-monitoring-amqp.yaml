@@ -27,7 +27,7 @@ spec:
           name: casbin
       containers:
         - name: goautowp-listen-monitoring-amqp
-          image: registry.pereslegin.ru/autowp/goautowp:v1.18.0
+          image: registry.pereslegin.ru/autowp/goautowp:v1.18.1
           imagePullPolicy: Always
           args:
             - listen-monitoring-amqp
