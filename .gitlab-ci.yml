@@ -1,16 +1,28 @@
 stages:
+  - test
   - deploy
+
+test:
+  image: $CI_REGISTRY/autowp/runner-base-image
+  stage: test
+  script:
+    - helm dependency update
+    - helm lint
+    - npx semantic-release
+  rules:
+    - if: $CI_COMMIT_TAG !~ /^v\d.*/
 
 deploy:
   image: $CI_REGISTRY/autowp/runner-base-image
   stage: deploy
   script:
-    - helm dependency update
-    - helm lint
+    - helm repo add --username helm --password "$DEPLOY_TOKEN" gitlab https://gitlab.pereslegin.ru/api/v4/projects/26/packages/helm/stable
+    - helm cm-push ./ --version="$CI_COMMIT_TAG" gitlab
 
+    - helm dependency update
     - helm -n autowp upgrade autowp . --reuse-values
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG =~ /^v\d.*/
   environment:
     name: production
     url: https://www.wheelsage.org/
