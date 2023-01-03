@@ -71,6 +71,7 @@ captcha: true
 mock-email-sender: false
 image-storage:
   s3:
+    region: "US-East"
     endpoint: https://s38.wheelsage.org
     credentials:
       key: {{ .Values.s3.key | quote }}
