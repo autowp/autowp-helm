@@ -27,7 +27,7 @@ spec:
           name: casbin
       containers:
         - name: goautowp-autoban
-          image: registry.pereslegin.ru/autowp/goautowp:v1.20.0
+          image: registry.pereslegin.ru/autowp/goautowp:v1.21.0
           imagePullPolicy: Always
           args:
             - autoban
