@@ -163,6 +163,13 @@ spec:
               name: goautowp-serve-public
               port:
                 name: app-port
+        - path: "/goautowp.Forums/"
+          pathType: Prefix
+          backend:
+            service:
+              name: goautowp-serve-public
+              port:
+                name: app-port
         - path: /
           pathType: Prefix
           backend:
