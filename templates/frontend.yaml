@@ -45,6 +45,13 @@ spec:
             periodSeconds: 10
           securityContext:
             runAsNonRoot: true
+          resources:
+            limits:
+              memory: 5Gi
+              cpu: 4000m
+            requests:
+              memory: 10M
+              cpu: 50m
       securityContext:
         runAsNonRoot: true
         fsGroup: 101

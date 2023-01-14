@@ -43,5 +43,12 @@ spec:
                   name: casbin
                   subPath: policy.csv
                   readOnly: true
+              resources:
+                limits:
+                  memory: 5Gi
+                  cpu: 4000m
+                requests:
+                  memory: 10M
+                  cpu: 50m
           restartPolicy: OnFailure
   concurrencyPolicy: Forbid

@@ -52,12 +52,26 @@ spec:
               name: casbin
               subPath: policy.csv
               readOnly: true
+          resources:
+            limits:
+              memory: 5Gi
+              cpu: 4000m
+            requests:
+              memory: 10M
+              cpu: 50m
         - name: nginx
           image: autowp/autowp:nginx
           imagePullPolicy: Always
           ports:
             - name: app-port
               containerPort: 8080
+          resources:
+            limits:
+              memory: 5Gi
+              cpu: 4000m
+            requests:
+              memory: 10M
+              cpu: 50m
 
 ---
 apiVersion: v1
