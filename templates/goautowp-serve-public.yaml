@@ -54,6 +54,11 @@ spec:
             requests:
               memory: 10M
               cpu: 50m
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 101
+
 
 ---
 apiVersion: v1
