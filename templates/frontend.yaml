@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  annotations:
+    ignore-check.kube-linter.io/no-read-only-root-fs: "nginx required temporary files for buffering"
 spec:
   selector:
     matchLabels:
