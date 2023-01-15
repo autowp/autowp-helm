@@ -110,6 +110,9 @@ memcached:
     requests:
       cpu: 100m
       memory: 100Mi
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 101
 rabbitmq:
   enabled: true
   replicaCount: 1
@@ -129,6 +132,9 @@ rabbitmq:
     requests:
       cpu: 100m
       memory: 100Mi
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 101
 postgres:
   hostname: 127.0.0.1
   port: 5432
