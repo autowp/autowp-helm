@@ -2,6 +2,10 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: maintenance
+  annotations:
+    ignore-check.kube-linter.io/no-read-only-root-fs: "laminas application required temporary files for cache"
+    ignore-check.kube-linter.io/run-as-non-root: "php is running from root"
+    ignore-check.kube-linter.io/latest-tag: "allow to use latest for deprecated image"
 spec:
   schedule: "27 4 * * *"
   jobTemplate:

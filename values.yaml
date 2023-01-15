@@ -103,6 +103,8 @@ memcached:
       requests:
         cpu: 10m
         memory: 10Mi
+    containerSecurityContext:
+      readOnlyRootFilesystem: true
   resources:
     limits:
       cpu: 1000m
@@ -110,6 +112,8 @@ memcached:
     requests:
       cpu: 100m
       memory: 100Mi
+  containerSecurityContext:
+    readOnlyRootFilesystem: true
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 101

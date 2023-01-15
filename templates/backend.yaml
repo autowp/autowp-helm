@@ -11,6 +11,8 @@ metadata:
   name: backend
   annotations:
     ignore-check.kube-linter.io/no-read-only-root-fs: "nginx required temporary files for buffering"
+    ignore-check.kube-linter.io/run-as-non-root: "php-fpm is running from root"
+    ignore-check.kube-linter.io/latest-tag: "allow to use latest for deprecated image"
 spec:
   selector:
     matchLabels:
@@ -74,6 +76,9 @@ spec:
             requests:
               memory: 10M
               cpu: 50m
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 101
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
