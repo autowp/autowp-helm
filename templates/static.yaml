@@ -22,11 +22,11 @@ spec:
             claimName: img
       containers:
         - name: static
-          image: nginx:1-alpine
+          image: nginxinc/nginx-unprivileged:1-alpine
           imagePullPolicy: Always
           ports:
             - name: app-port
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: NGINX_ENTRYPOINT_QUIET_LOGS
               value: "1"
@@ -53,6 +53,22 @@ spec:
             requests:
               memory: 10M
               cpu: 50m
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 101
+        runAsUser: 101
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                topologyKey: "kubernetes.io/hostname"
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - static
+              weight: 100
 
 ---
 apiVersion: v1
@@ -64,11 +80,10 @@ metadata:
 spec:
   ports:
     - name: app-port
-      port: 80
+      port: 8080
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
   selector:
     app: static
   sessionAffinity: None
   type: ClusterIP
-

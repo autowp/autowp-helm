@@ -71,7 +71,7 @@ spec:
             service:
               name: static
               port:
-                number: 80
+                name: app-port
         - path: /api/oauth/
           pathType: Prefix
           backend:

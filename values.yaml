@@ -132,6 +132,8 @@ rabbitmq:
     requests:
       cpu: 100m
       memory: 100Mi
+  commonAnnotations:
+    ignore-check.kube-linter.io/no-read-only-root-fs: "The variable RABBITMQ_COMBINED_CERT_PATH must be set to either an existant file or a non-existant file in a writable directory."
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 101
