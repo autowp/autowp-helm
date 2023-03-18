@@ -41,7 +41,7 @@ feedback:
     - {{ .Values.feedback.to | quote}}
   subject: AutoWP Feedback
 keycloak:
-  url: "https://auth.wheelsage.org"
+  url: "https://auth.wheelsage.org/auth"
   realm: "autowp"
   client-id: "autowp"
   client-secret: {{ .Values.keycloak.clientSecret | quote }}
