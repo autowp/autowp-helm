@@ -27,7 +27,7 @@ spec:
           name: casbin
       containers:
         - name: goautowp-listen-df-amqp
-          image: registry.pereslegin.ru/autowp/goautowp:v1.33.1
+          image: registry.pereslegin.ru/autowp/goautowp:v1.33.2
           imagePullPolicy: Always
           args:
             - listen-df-amqp
