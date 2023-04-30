@@ -67,6 +67,8 @@ languages:
     hostname: uk.wheelsage.org
   es:
     hostname: es.wheelsage.org
+  it:
+    hostname: it.wheelsage.org
 captcha: true
 mock-email-sender: false
 image-storage:

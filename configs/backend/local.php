@@ -94,6 +94,9 @@ return [
         'es'    => [
             'hostname' => 'es.wheelsage.org',
         ],
+        'it'    => [
+            'hostname' => 'it.wheelsage.org',
+        ],
     ],
     'sentry'                   => [
         'dsn'         => {{ .Values.backend.sentry.dsn | quote }},
