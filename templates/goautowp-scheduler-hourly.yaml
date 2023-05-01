@@ -24,7 +24,7 @@ spec:
               name: casbin
           containers:
             - name: goautowp-scheduler-hourly
-              image: registry.pereslegin.ru/autowp/goautowp:v1.34.1
+              image: registry.pereslegin.ru/autowp/goautowp:v1.35.0
               imagePullPolicy: Always
               args:
                 - scheduler-hourly
