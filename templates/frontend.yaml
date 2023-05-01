@@ -18,7 +18,7 @@ spec:
         - name: gitlab-registry
       containers:
         - name: frontend
-          image: "registry.pereslegin.ru/autowp/frontend:v1.66.1"
+          image: "registry.pereslegin.ru/autowp/frontend:v1.67.0"
           imagePullPolicy: Always
           ports:
             - name: app-port
