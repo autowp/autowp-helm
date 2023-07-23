@@ -69,6 +69,8 @@ languages:
     hostname: es.wheelsage.org
   it:
     hostname: it.wheelsage.org
+  he:
+    hostname: he.wheelsage.org
 captcha: true
 mock-email-sender: false
 image-storage:
