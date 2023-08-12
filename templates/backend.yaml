@@ -17,7 +17,7 @@ spec:
   selector:
     matchLabels:
       app: backend
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:

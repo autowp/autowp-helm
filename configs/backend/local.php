@@ -75,30 +75,39 @@ return [
         ],
         'zh'    => [
             'hostname' => 'zh.wheelsage.org',
+            'aliases'  => [],
         ],
         'ru'    => [
             'hostname' => 'www.autowp.ru',
+            'aliases'  => [],
         ],
         'pt-br' => [
             'hostname' => 'br.wheelsage.org',
+            'aliases'  => [],
         ],
         'fr'    => [
             'hostname' => 'fr.wheelsage.org',
+            'aliases'  => [],
         ],
         'be'    => [
             'hostname' => 'be.wheelsage.org',
+            'aliases'  => [],
         ],
         'uk'    => [
             'hostname' => 'uk.wheelsage.org',
+            'aliases'  => [],
         ],
         'es'    => [
             'hostname' => 'es.wheelsage.org',
+            'aliases'  => [],
         ],
         'it'    => [
             'hostname' => 'it.wheelsage.org',
+            'aliases'  => [],
         ],
         'he'    => [
             'hostname' => 'he.wheelsage.org',
+            'aliases'  => [],
         ],
     ],
     'sentry'                   => [

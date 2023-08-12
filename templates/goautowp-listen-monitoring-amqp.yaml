@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: goautowp-listen-monitoring-amqp
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
