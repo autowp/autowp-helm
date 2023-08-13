@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: autowp-img
   local:
-    path: /root/docker/autowp.ru/img
+    path: /data/autowp.ru/img
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -19,7 +19,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - i38
+                - i31
 
 ---
 kind: PersistentVolumeClaim
@@ -49,7 +49,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: autowp-rabbitmq
   local:
-    path: /root/docker/autowp.ru/rabbitmq-data
+    path: /data/autowp.ru/rabbitmq-data
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -57,4 +57,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - i38
+                - i31
