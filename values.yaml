@@ -176,17 +176,23 @@ redis:
   master:
     resources:
       limits:
+        cpu: "1"
         memory: "1024Mi"
       requests:
+        cpu: 50m
         memory: "50Mi"
     persistence:
       enabled: false
+    containerSecurityContext:
+      readOnlyRootFilesystem: true
   replica:
     replicaCount: 2
     resources:
       limits:
+        cpu: "1"
         memory: "1024Mi"
       requests:
+        cpu: 10m
         memory: "50Mi"
     persistence:
       enabled: false
@@ -194,12 +200,18 @@ redis:
       enabled: true
       minReplicas: 1
       maxReplicas: 5
+    containerSecurityContext:
+      readOnlyRootFilesystem: true
   metrics:
     enabled: true
     resources:
       limits:
+        cpu: "1"
         memory: "1024Mi"
       requests:
+        cpu: 10m
         memory: "10Mi"
     serviceMonitor:
       enabled: true
+    containerSecurityContext:
+      readOnlyRootFilesystem: true
