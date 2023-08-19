@@ -1,36 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: goautowp-autoban
+  name: {{ include "autowp.goautowp.serve-private.fullname" . | quote }}
 spec:
   selector:
-    matchLabels:
-      app: goautowp-autoban
-  replicas: 1
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: goautowp-serve-private
+  replicas: 2
   template:
     metadata:
-      labels:
-        app: goautowp-autoban
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: goautowp-serve-private
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
-      imagePullSecrets:
-        - name: gitlab-registry
+      {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       volumes:
         - configMap:
             defaultMode: 420
-            name: goautowp
+            name: {{ include "autowp.goautowp.fullname" . | quote }}
           name: config
         - configMap:
             defaultMode: 420
             name: casbin
           name: casbin
       containers:
-        - name: goautowp-autoban
-          image: registry.pereslegin.ru/autowp/goautowp:v1.46.0
-          imagePullPolicy: Always
+        - name: goautowp-serve-private
+          image: {{ include "autowp.goautowp.image" . }}
+          imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - autoban
+            - serve-private
+          ports:
+            - name: app-port
+              containerPort: 8081
           volumeMounts:
             - mountPath: /config.yaml
               name: config
@@ -65,5 +67,5 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - goautowp-autoban
+                        - goautowp-serve-private
               weight: 100

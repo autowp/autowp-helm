@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: goautowp-scheduler-daily
+  name: {{ include "autowp.goautowp.scheduler-midnight.fullname" . | quote }}
 spec:
   schedule: "0 * * * *"
   jobTemplate:
@@ -11,23 +11,22 @@ spec:
           annotations:
             checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
         spec:
-          imagePullSecrets:
-            - name: gitlab-registry
+          {{- include "autowp.imagePullSecrets" . | nindent 10 }}
           volumes:
             - configMap:
                 defaultMode: 420
-                name: goautowp
+                name: {{ include "autowp.goautowp.fullname" . | quote }}
               name: config
             - configMap:
                 defaultMode: 420
                 name: casbin
               name: casbin
           containers:
-            - name: goautowp-scheduler-daily
-              image: registry.pereslegin.ru/autowp/goautowp:v1.46.0
-              imagePullPolicy: Always
+            - name: goautowp-scheduler-midnight
+              image: {{ include "autowp.goautowp.image" . }}
+              imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
               args:
-                - scheduler-daily
+                - scheduler-midnight
               volumeMounts:
                 - mountPath: /config.yaml
                   name: config

@@ -1,36 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: goautowp-listen-monitoring-amqp
+  name: {{ include "autowp.goautowp.autoban.fullname" . | quote }}
 spec:
   selector:
-    matchLabels:
-      app: goautowp-listen-monitoring-amqp
-  replicas: 2
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: goautowp-autoban
+  replicas: 1
   template:
     metadata:
-      labels:
-        app: goautowp-listen-monitoring-amqp
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: goautowp-autoban
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
-      imagePullSecrets:
-        - name: gitlab-registry
+      {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       volumes:
         - configMap:
             defaultMode: 420
-            name: goautowp
+            name: {{ include "autowp.goautowp.fullname" . | quote }}
           name: config
         - configMap:
             defaultMode: 420
             name: casbin
           name: casbin
       containers:
-        - name: goautowp-listen-monitoring-amqp
-          image: registry.pereslegin.ru/autowp/goautowp:v1.46.0
-          imagePullPolicy: Always
+        - name: goautowp-autoban
+          image: {{ include "autowp.goautowp.image" . }}
+          imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - listen-monitoring-amqp
+            - autoban
           volumeMounts:
             - mountPath: /config.yaml
               name: config
@@ -65,5 +64,5 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - goautowp-listen-monitoring-amqp
+                        - goautowp-autoban
               weight: 100

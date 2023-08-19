@@ -1,45 +1,39 @@
-apiVersion: v1
-data: {{ (tpl (.Files.Glob "configs/backend/*").AsConfig . ) | nindent 2 }}
-kind: ConfigMap
-metadata:
-  name: backend
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: {{ include "autowp.backend.fullname" . | quote }}
+  labels:
+    app.kubernetes.io/component: backend
   annotations:
     ignore-check.kube-linter.io/no-read-only-root-fs: "nginx required temporary files for buffering"
     ignore-check.kube-linter.io/run-as-non-root: "php-fpm is running from root"
     ignore-check.kube-linter.io/latest-tag: "allow to use latest for deprecated image"
 spec:
   selector:
-    matchLabels:
-      app: backend
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: backend
   replicas: 2
   template:
     metadata:
-      labels:
-        app: backend
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: backend
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{backend,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
+      {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       volumes:
         - configMap:
             defaultMode: 420
-            name: backend
+            name: {{ include "autowp.backend.fullname" . | quote }}
           name: config
         - configMap:
             defaultMode: 420
             name: casbin
           name: casbin
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: php-fpm
-          image: autowp/autowp
-          imagePullPolicy: Always
+          image: {{ include "autowp.backend.image" . }}
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy | quote }}
           ports:
             - name: php-fpm-port
               containerPort: 9000
@@ -64,8 +58,8 @@ spec:
               memory: 10M
               cpu: 50m
         - name: nginx
-          image: autowp/autowp:nginx
-          imagePullPolicy: Always
+          image: {{ include "autowp.backend.nginx.image" . }}
+          imagePullPolicy: {{ .Values.backend.nginx.image.pullPolicy | quote }}
           ports:
             - name: app-port
               containerPort: 8080
@@ -91,21 +85,3 @@ spec:
                       values:
                         - backend
               weight: 100
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: backend
-  name: backend
-spec:
-  ports:
-    - name: app-port
-      port: 80
-      protocol: TCP
-      targetPort: app-port
-  selector:
-    app: backend
-  sessionAffinity: None
-  type: ClusterIP

@@ -12,19 +12,15 @@ return [
     'caches' => [
         'fastCache' => [
             'options'  => [
-                'servers'   => [
-                    'main' => [
-                        'host' => {{ include "common.names.fullname" .Subcharts.memcached | quote }},
-                    ],
+                'server'   => [
+                    'host' => {{ printf "%s-master" (include "common.names.fullname" .Subcharts.redis) | quote }},
                 ],
             ],
         ],
         'longCache' => [
             'options'  => [
-                'servers'   => [
-                    'main' => [
-                        'host' => {{ include "common.names.fullname" .Subcharts.memcached | quote }},
-                    ],
+                'server'   => [
+                    'host' => {{ printf "%s-master" (include "common.names.fullname" .Subcharts.redis) | quote }},
                 ],
             ],
         ],
@@ -166,7 +162,7 @@ return [
         'host'     => {{ include "common.names.fullname" .Subcharts.rabbitmq | quote }},
     ],
     'traffic'                  => [
-        'url' => 'http://goautowp-serve-private:8081',
+        'url' => 'http://{{ include "autowp.goautowp.serve-private.fullname" . }}:8081',
     ],
     'feedback'                 => [
         'to' => {{ .Values.feedback.to | quote }},

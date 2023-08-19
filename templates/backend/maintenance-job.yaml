@@ -15,12 +15,11 @@ spec:
           annotations:
             checksum/config: {{ (tpl (.Files.Glob "configs/{backend,casbin}/*").AsConfig . ) | sha256sum }}
         spec:
-          imagePullSecrets:
-            - name: regcred
+          {{- include "autowp.imagePullSecrets" . | nindent 10 }}
           volumes:
           - configMap:
               defaultMode: 420
-              name: backend
+              name: {{ include "autowp.backend.fullname" . | quote }}
             name: config
           - configMap:
               defaultMode: 420
@@ -28,8 +27,8 @@ spec:
             name: casbin
           containers:
             - name: maintenance
-              image: autowp/autowp
-              imagePullPolicy: Always
+              image: {{ include "autowp.backend.image" . }}
+              imagePullPolicy: {{ .Values.backend.image.pullPolicy | quote }}
               args:
                 - ./zf
                 - cron

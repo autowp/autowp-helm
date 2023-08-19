@@ -1,25 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ include "autowp.frontend.fullname" . | quote }}
+  labels:
+    app.kubernetes.io/component: frontend
   annotations:
     ignore-check.kube-linter.io/no-read-only-root-fs: "nginx required temporary files for buffering"
 spec:
   selector:
-    matchLabels:
-      app: frontend
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: frontend
   replicas: 2
   template:
     metadata:
-      labels:
-        app: frontend
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: frontend
     spec:
-      imagePullSecrets:
-        - name: gitlab-registry
+      {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       containers:
         - name: frontend
-          image: "registry.pereslegin.ru/autowp/frontend:v1.84.0"
-          imagePullPolicy: Always
+          image: {{ include "autowp.frontend.image" . }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy | quote }}
           ports:
             - name: app-port
               containerPort: 8080

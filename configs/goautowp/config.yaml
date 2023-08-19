@@ -81,8 +81,7 @@ image-storage:
       key: {{ .Values.s3.key | quote }}
       secret: {{ .Values.s3.secret | quote }}
     use_path_style_endpoint: true
-memcached:
-  - "{{ include "common.names.fullname" .Subcharts.memcached }}:11211"
+redis: redis://{{ include "common.names.fullname" .Subcharts.redis }}-master:{{ .Values.redis.master.service.ports.redis }}
 telegram:
   access-token: {{ .Values.telegram.accessToken | quote }}
 donations-vod-price: {{ .Values.yandexMoney.price }}

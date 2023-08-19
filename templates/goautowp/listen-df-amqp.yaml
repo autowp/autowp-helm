@@ -1,39 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: goautowp-serve-private
+  name: {{ include "autowp.goautowp.listen-df-amqp.fullname" . | quote }}
 spec:
   selector:
-    matchLabels:
-      app: goautowp-serve-private
-  replicas: 2
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: goautowp-listen-df-amqp
+  replicas: 1
   template:
     metadata:
-      labels:
-        app: goautowp-serve-private
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: goautowp-listen-df-amqp
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
-      imagePullSecrets:
-        - name: gitlab-registry
+      {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       volumes:
         - configMap:
             defaultMode: 420
-            name: goautowp
+            name: {{ include "autowp.goautowp.fullname" . | quote }}
           name: config
         - configMap:
             defaultMode: 420
             name: casbin
           name: casbin
       containers:
-        - name: goautowp-serve-private
-          image: registry.pereslegin.ru/autowp/goautowp:v1.46.0
-          imagePullPolicy: Always
+        - name: goautowp-listen-df-amqp
+          image: {{ include "autowp.goautowp.image" . }}
+          imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - serve-private
-          ports:
-            - name: app-port
-              containerPort: 8081
+            - listen-df-amqp
           volumeMounts:
             - mountPath: /config.yaml
               name: config
@@ -68,22 +64,5 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - goautowp-serve-private
+                        - goautowp-listen-df-amqp
               weight: 100
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: goautowp-serve-private
-  name: goautowp-serve-private
-spec:
-  ports:
-    - name: app-port
-      port: 8081
-      protocol: TCP
-      targetPort: app-port
-  selector:
-    app: goautowp-serve-private
-  type: ClusterIP
