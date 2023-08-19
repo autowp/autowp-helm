@@ -7,7 +7,6 @@ global:
   imagePullSecrets:
     - docker.io
     - gitlab-registry
-
 hostnames:
   - www.autowp.ru
   - be.wheelsage.org
@@ -114,7 +113,7 @@ goautowp:
   image:
     registry: registry.pereslegin.ru
     repository: autowp/goautowp
-    tag: v1.47.0
+    tag: v1.48.0
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []
@@ -126,7 +125,6 @@ traffic:
   postgres:
     username: traffic
     password: password
-
 rabbitmq:
   enabled: true
   replicaCount: 1
@@ -168,7 +166,6 @@ imageCredentials:
   username: someone
   password: sillyness
   email: someone@host.com
-
 redis:
   enabled: true
   auth:
@@ -215,7 +212,6 @@ redis:
       enabled: true
     containerSecurityContext:
       readOnlyRootFilesystem: true
-
 static:
   image:
     registry: docker.io
