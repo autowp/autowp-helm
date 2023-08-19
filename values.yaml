@@ -5,7 +5,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets:
-    - regcred
+    - docker.io
     - gitlab-registry
 
 hostnames:
@@ -215,3 +215,12 @@ redis:
       enabled: true
     containerSecurityContext:
       readOnlyRootFilesystem: true
+
+static:
+  image:
+    registry: docker.io
+    repository: nginxinc/nginx-unprivileged
+    tag: 1-alpine
+    digest: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []

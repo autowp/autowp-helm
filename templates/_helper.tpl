@@ -73,3 +73,11 @@
 {{- define "autowp.goautowp.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.goautowp.image "global" .Values.global) }}
 {{- end -}}
+
+{{- define "autowp.static.fullname" -}}
+{{- printf "%s-static" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "autowp.static.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.static.image "global" .Values.global) }}
+{{- end -}}

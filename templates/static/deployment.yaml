@@ -1,29 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: static
+  name: {{ include "autowp.static.fullname" . | quote }}
   annotations:
     ignore-check.kube-linter.io/no-read-only-root-fs: "nginx required temporary files for buffering"
 spec:
   selector:
-    matchLabels:
-      app: static
-  replicas: 1
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: static
+  replicas: 2
   template:
     metadata:
-      labels:
-        app: static
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: static
     spec:
-      imagePullSecrets:
-        - name: regcred
+      {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       volumes:
         - name: img
           persistentVolumeClaim:
             claimName: img
       containers:
         - name: static
-          image: nginxinc/nginx-unprivileged:1-alpine
-          imagePullPolicy: Always
+          image: {{ include "autowp.static.image" . }}
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy | quote }}
           ports:
             - name: app-port
               containerPort: 8080
@@ -69,21 +68,3 @@ spec:
                       values:
                         - static
               weight: 100
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: static
-  name: static
-spec:
-  ports:
-    - name: app-port
-      port: 8080
-      protocol: TCP
-      targetPort: 8080
-  selector:
-    app: static
-  sessionAffinity: None
-  type: ClusterIP

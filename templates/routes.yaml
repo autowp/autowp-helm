@@ -69,7 +69,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: static
+              name: {{ include "autowp.static.fullname" $ | quote }}
               port:
                 name: app-port
         - path: /api/oauth/
