@@ -220,3 +220,5 @@ static:
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []
+
+mostsMinVehiclesCount: 200

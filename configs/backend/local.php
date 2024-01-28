@@ -55,7 +55,7 @@ return [
             ],
         ],
     ],
-    'mosts_min_vehicles_count' => 200,
+    'mosts_min_vehicles_count' => {{ .Values.mostsMinVehiclesCount }},
     'force_https'              => false,
     'users'                    => [
         'salt'      => {{ .Values.usersSalt | quote }},

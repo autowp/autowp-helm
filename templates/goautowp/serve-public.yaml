@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: goautowp-serve-public
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}

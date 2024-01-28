@@ -19,7 +19,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - i31
+                - i35
 
 ---
 kind: PersistentVolumeClaim
@@ -57,4 +57,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - i31
+                - i35

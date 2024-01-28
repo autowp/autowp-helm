@@ -91,3 +91,4 @@ about:
   zh-translator: "25155"
   be-translator: "15603"
   pt-br-translator: "17322"
+mosts-min-cars-count: {{ .Values.mostsMinVehiclesCount }}
