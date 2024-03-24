@@ -119,10 +119,6 @@ return [
         'token'    => {{ .Values.vk.token | quote }},
         'owner_id' => {{ .Values.vk.ownerId | quote }},
     ],
-    'yandex'                   => [
-        'secret' => {{ .Values.yandexMoney.secret | quote }},
-        'price'  => {{ .Values.yandexMoney.price }},
-    ],
     'facebook'           => [
         'app_id'            => {{ .Values.facebook.clientId | quote }},
         'app_secret'        => {{ .Values.facebook.clientSecret | quote }},

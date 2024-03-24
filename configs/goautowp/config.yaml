@@ -84,7 +84,7 @@ image-storage:
 redis: redis://{{ include "common.names.fullname" .Subcharts.redis }}-master:{{ .Values.redis.master.service.ports.redis }}
 telegram:
   access-token: {{ .Values.telegram.accessToken | quote }}
-donations-vod-price: {{ .Values.yandexMoney.price }}
+donations-vod-price: {{ .Values.yoomoney.price }}
 about:
   developer: "1"
   fr-translator: "3282"
@@ -92,3 +92,6 @@ about:
   be-translator: "15603"
   pt-br-translator: "17322"
 mosts-min-cars-count: {{ .Values.mostsMinVehiclesCount }}
+yoomoney:
+  secret: {{ .Values.yoomoney.secret | quote }}
+  price: {{ .Values.yoomoney.price | quote }}

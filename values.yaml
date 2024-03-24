@@ -61,7 +61,7 @@ twitter:
   secret: "secret"
   oauthToken: "1234567890-token"
   oauthSecret: "secret"
-yandexMoney:
+yoomoney:
   secret: "secret"
   price: "999"
 reCaptcha:
