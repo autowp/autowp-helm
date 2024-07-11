@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "autowp.goautowp.scheduler-generate-brands-cache.fullname" . | quote }}
+  name: {{ include "autowp.goautowp.scheduler-generate-index-cache.fullname" . | quote }}
 spec:
   schedule: "0 10 * * *"
   jobTemplate:
@@ -22,11 +22,11 @@ spec:
                 name: casbin
               name: casbin
           containers:
-            - name: goautowp-scheduler-generate-brands-cache
+            - name: goautowp-scheduler-generate-index-cache
               image: {{ include "autowp.goautowp.image" . }}
               imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
               args:
-                - scheduler-generate-brands-cache
+                - scheduler-index-brands-cache
               volumeMounts:
                 - mountPath: /config.yaml
                   name: config
