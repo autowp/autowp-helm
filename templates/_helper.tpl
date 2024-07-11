@@ -62,6 +62,10 @@
 {{- printf "%s-scheduler-midnight" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "autowp.goautowp.scheduler-generate-brands-cache.fullname" -}}
+{{- printf "%s-scheduler-generate-brands-cache" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "autowp.goautowp.serve-private.fullname" -}}
 {{- printf "%s-serve-private" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
