@@ -26,7 +26,7 @@ spec:
               image: {{ include "autowp.goautowp.image" . }}
               imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
               args:
-                - scheduler-index-index-cache
+                - scheduler-generate-index-cache
               volumeMounts:
                 - mountPath: /config.yaml
                   name: config
