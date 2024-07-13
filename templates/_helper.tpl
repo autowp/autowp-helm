@@ -74,6 +74,10 @@
 {{- printf "%s-serve-public" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "autowp.goautowp.serve-grpc.fullname" -}}
+{{- printf "%s-serve-grpc" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "autowp.goautowp.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.goautowp.image "global" .Values.global) }}
 {{- end -}}

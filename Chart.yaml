@@ -24,7 +24,7 @@ appVersion: 2.0.0
 
 dependencies:
   - name: rabbitmq
-    version: ^13
+    version: ^14
     repository: https://charts.bitnami.com/bitnami
     condition: rabbitmq.enabled
   - name: common

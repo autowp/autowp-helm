@@ -18,6 +18,7 @@ hostnames:
   - zh.wheelsage.org
   - it.wheelsage.org
   - he.wheelsage.org
+grpcHostname: grpc.wheelsage.org
 auth:
   sentry:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1

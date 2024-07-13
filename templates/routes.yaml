@@ -206,3 +206,31 @@ spec:
               port:
                 name: app-port
   {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grpc
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.grpcHostname | quote }}
+      secretName: grpc-tls
+  rules:
+  - host: {{ .Values.grpcHostname | quote }}
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "autowp.goautowp.serve-public.fullname" $ | quote }}
+              port:
+                name: app-port

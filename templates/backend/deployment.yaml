@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: backend
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}

@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "autowp.goautowp.serve-private.fullname" . | quote }}
+  name: {{ include "autowp.goautowp.serve-grpc.fullname" . | quote }}
 spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: goautowp-serve-private
+      app.kubernetes.io/component: goautowp-serve-grpc
   replicas: 2
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: goautowp-serve-private
+        app.kubernetes.io/component: goautowp-serve-grpc
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
@@ -25,14 +25,14 @@ spec:
             name: casbin
           name: casbin
       containers:
-        - name: goautowp-serve-private
+        - name: goautowp-serve-grpc
           image: {{ include "autowp.goautowp.image" . }}
           imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - serve-private
+            - serve-grpc
           ports:
             - name: app-port
-              containerPort: 8081
+              containerPort: 8080
           volumeMounts:
             - mountPath: /config.yaml
               name: config
@@ -67,5 +67,5 @@ spec:
                     - key: app.kubernetes.io/component
                       operator: In
                       values:
-                        - goautowp-serve-private
+                        - goautowp-serve-grpc
               weight: 100
