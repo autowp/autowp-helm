@@ -114,7 +114,7 @@ goautowp:
   image:
     registry: registry.pereslegin.ru
     repository: autowp/goautowp
-    tag: v2.2.1
+    tag: v2.3.0
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []
