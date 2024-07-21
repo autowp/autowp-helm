@@ -72,7 +72,7 @@ frontend:
   image:
     registry: registry.pereslegin.ru
     repository: autowp/frontend
-    tag: v1.142.1
+    tag: v1.143.0
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []
