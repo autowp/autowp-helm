@@ -29,10 +29,13 @@ spec:
           image: {{ include "autowp.goautowp.image" . }}
           imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - serve-private
+            - serve
+            - --private
           ports:
             - name: app-port
               containerPort: 8081
+            - name: metrics
+              containerPort: 2112
           volumeMounts:
             - mountPath: /config.yaml
               name: config

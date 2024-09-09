@@ -42,12 +42,12 @@
 {{- printf "%s-autoban" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "autowp.goautowp.listen-df-amqp.fullname" -}}
-{{- printf "%s-listen-df-amqp" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- define "autowp.goautowp.serve-df-amqp.fullname" -}}
+{{- printf "%s-serve-df-amqp" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "autowp.goautowp.listen-monitoring-amqp.fullname" -}}
-{{- printf "%s-listen-monitoring-amqp" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- define "autowp.goautowp.serve-monitoring-amqp.fullname" -}}
+{{- printf "%s-serve-monitoring-amqp" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "autowp.goautowp.scheduler-daily.fullname" -}}

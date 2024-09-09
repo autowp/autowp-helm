@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "autowp.goautowp.listen-df-amqp.fullname" . | quote }}
+  name: {{ include "autowp.goautowp.serve-df-amqp.fullname" . | quote }}
 spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: goautowp-listen-df-amqp
+      app.kubernetes.io/component: goautowp-serve-df-amqp
   replicas: 1
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: goautowp-listen-df-amqp
+        app.kubernetes.io/component: goautowp-serve-df-amqp
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
@@ -25,11 +25,15 @@ spec:
             name: casbin
           name: casbin
       containers:
-        - name: goautowp-listen-df-amqp
+        - name: goautowp-serve-df-amqp
           image: {{ include "autowp.goautowp.image" . }}
           imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - listen-df-amqp
+            - serve
+            - --df-amqp
+          ports:
+            - name: metrics
+              containerPort: 2112
           volumeMounts:
             - mountPath: /config.yaml
               name: config
@@ -64,5 +68,5 @@ spec:
                     - key: app.kubernetes.io/component
                       operator: In
                       values:
-                        - goautowp-listen-df-amqp
+                        - goautowp-serve-df-amqp
               weight: 100

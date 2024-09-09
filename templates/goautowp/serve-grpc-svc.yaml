@@ -6,7 +6,7 @@ metadata:
 spec:
   ports:
     - name: app-port
-      port: 8080
+      port: 8082
       protocol: TCP
       targetPort: app-port
   selector: {{ include "common.labels.matchLabels" . | nindent 4 }}

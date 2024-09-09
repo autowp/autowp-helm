@@ -122,6 +122,23 @@ goautowp:
     dsn: https://1234567890abcdef1234567890abcdef@sentry.example.com/1
   postgres:
     password: password
+  podMonitor:
+    ## @param metrics.podMonitor.enabled Create PodMonitor Resource for scraping metrics using PrometheusOperator
+    ##
+    enabled: true
+    ## @param metrics.podMonitor.interval Specify the interval at which metrics should be scraped
+    ##
+    interval: 30s
+    ## @param metrics.podMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
+    ## e.g:
+    ## scrapeTimeout: 30s
+    ##
+    scrapeTimeout: ""
+    ## @param metrics.serviceMonitor.path Define the path used by ServiceMonitor to scrap metrics
+    ## Could be /metrics for aggregated metrics or /metrics/per-object for more details
+    ##
+    path: "/metrics"
+
 traffic:
   postgres:
     username: traffic

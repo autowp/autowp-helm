@@ -29,7 +29,11 @@ spec:
           image: {{ include "autowp.goautowp.image" . }}
           imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - autoban
+            - serve
+            - --autoban
+          ports:
+            - name: metrics
+              containerPort: 2112
           volumeMounts:
             - mountPath: /config.yaml
               name: config

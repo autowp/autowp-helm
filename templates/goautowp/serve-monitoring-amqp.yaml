@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "autowp.goautowp.listen-monitoring-amqp.fullname" . | quote }}
+  name: {{ include "autowp.goautowp.serve-monitoring-amqp.fullname" . | quote }}
 spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: goautowp-listen-monitoring-amqp
+      app.kubernetes.io/component: goautowp-serve-monitoring-amqp
   replicas: 1
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: goautowp-listen-monitoring-amqp
+        app.kubernetes.io/component: goautowp-serve-monitoring-amqp
       annotations:
         checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
     spec:
@@ -25,11 +25,15 @@ spec:
             name: casbin
           name: casbin
       containers:
-        - name: goautowp-listen-monitoring-amqp
+        - name: goautowp-serve-monitoring-amqp
           image: {{ include "autowp.goautowp.image" . }}
           imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
           args:
-            - listen-monitoring-amqp
+            - serve
+            - --monitoring-amqp
+          ports:
+            - name: metrics
+              containerPort: 2112
           volumeMounts:
             - mountPath: /config.yaml
               name: config
@@ -64,5 +68,5 @@ spec:
                     - key: app.kubernetes.io/component
                       operator: In
                       values:
-                        - goautowp-listen-monitoring-amqp
+                        - goautowp-serve-monitoring-amqp
               weight: 100

@@ -1,6 +1,10 @@
 gin-mode: "release"
 public-rest:
   listen: ":8080"
+private-rest:
+  listen: ":8081"
+grpc:
+  listen: ":8082"
 sentry:
   dsn: {{ .Values.goautowp.sentry.dsn | quote }}
   environment: production
@@ -20,8 +24,6 @@ file_storage:
       - {{ printf "https://%s" .hostname | quote}}
       {{- end }}
       {{- end }}
-private-rest:
-  listen: ":8081"
 rabbitmq: amqp://guest:guest@{{ include "common.names.fullname" .Subcharts.rabbitmq }}:5672/
 postgres-dsn: postgres://{{ .Values.traffic.postgres.username }}:{{ .Values.traffic.postgres.password }}@{{ .Values.postgres.hostname }}:{{ .Values.postgres.port }}/traffic?sslmode=disable
 postgres-migrations:
