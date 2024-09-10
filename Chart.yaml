@@ -31,6 +31,6 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     version: ^2
   - name: redis
-    version: ^19
+    version: ^20
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
