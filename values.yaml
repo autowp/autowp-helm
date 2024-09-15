@@ -114,7 +114,7 @@ goautowp:
   image:
     registry: registry.pereslegin.ru
     repository: autowp/goautowp
-    tag: v2.38.0
+    tag: v2.39.0
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []
@@ -138,7 +138,6 @@ goautowp:
     ## Could be /metrics for aggregated metrics or /metrics/per-object for more details
     ##
     path: "/metrics"
-
 traffic:
   postgres:
     username: traffic
