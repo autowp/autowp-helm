@@ -82,7 +82,7 @@ backend:
   image:
     registry: registry.pereslegin.ru
     repository: autowp/backend
-    tag: v1.8.0
+    tag: v1.9.0
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []
@@ -90,7 +90,7 @@ backend:
     image:
       registry: registry.pereslegin.ru
       repository: autowp/backend
-      tag: nginx-v1.8.0
+      tag: nginx-v1.9.0
       digest: ""
       pullPolicy: IfNotPresent
       pullSecrets: []
