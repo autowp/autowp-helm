@@ -50,6 +50,10 @@
 {{- printf "%s-serve-monitoring-amqp" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "autowp.goautowp.serve-attrs-update-values-amqp.fullname" -}}
+{{- printf "%s-serve-attrs-update-values-amqp" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "autowp.goautowp.scheduler-daily.fullname" -}}
 {{- printf "%s-scheduler-daily" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
