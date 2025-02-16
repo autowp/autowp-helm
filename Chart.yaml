@@ -25,12 +25,12 @@ appVersion: 2.0.0
 dependencies:
   - name: rabbitmq
     version: ^14
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: rabbitmq.enabled
   - name: common
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
     version: ^2
   - name: redis
     version: ^20
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
