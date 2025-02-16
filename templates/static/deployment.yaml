@@ -34,13 +34,11 @@ spec:
               path: /
               port: app-port
             initialDelaySeconds: 3
-            periodSeconds: 3
           readinessProbe:
             httpGet:
               path: /
               port: app-port
             initialDelaySeconds: 5
-            periodSeconds: 10
           volumeMounts:
             - mountPath: "/usr/share/nginx/html/img"
               name: img
