@@ -187,6 +187,7 @@ redis:
   enabled: true
   auth:
     enabled: false
+    usePasswordFiles: false
   master:
     resources:
       limits:
