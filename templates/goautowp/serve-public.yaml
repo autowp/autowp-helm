@@ -24,6 +24,8 @@ spec:
             defaultMode: 420
             name: casbin
           name: casbin
+        - name: tmp
+          emptyDir: {}
       containers:
         - name: goautowp-serve-public
           image: {{ include "autowp.goautowp.image" . }}
@@ -49,6 +51,8 @@ spec:
               name: casbin
               subPath: policy.csv
               readOnly: true
+            - mountPath: /tmp
+              name: tmp
           resources:
             limits:
               memory: 5Gi
