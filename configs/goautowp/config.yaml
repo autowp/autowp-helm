@@ -18,6 +18,7 @@ autowp-dsn: "{{ .Values.mysql.username }}:{{ .Values.mysql.password }}@tcp({{ .V
 file-storage:
   bucket: files
   s3:
+    region: "US-East"
     endpoint: https://s3.wheelsage.org
     credentials:
       key: {{ .Values.s3.key | quote }}
