@@ -86,6 +86,7 @@ image-storage:
 redis: redis://{{ include "common.names.fullname" .Subcharts.redis }}-master:{{ .Values.redis.master.service.ports.redis }}
 telegram:
   access-token: {{ .Values.telegram.accessToken | quote }}
+  webhook: {{ (printf "https://www.autowp.ru/api/telegram/webhook/token/%s" .Values.telegram.webhookToken) | quote }}
 donations-vod-price: {{ .Values.yoomoney.price }}
 about:
   developer: "1"
