@@ -87,6 +87,7 @@ redis: redis://{{ include "common.names.fullname" .Subcharts.redis }}-master:{{ 
 telegram:
   access-token: {{ .Values.telegram.accessToken | quote }}
   webhook: {{ (printf "https://www.autowp.ru/telegram/webhook/token/%s" .Values.telegram.webhookToken) | quote }}
+  webhook-token: {{ .Values.telegram.webhookToken | quote }}
 donations-vod-price: {{ .Values.yoomoney.price }}
 about:
   developer: "1"
