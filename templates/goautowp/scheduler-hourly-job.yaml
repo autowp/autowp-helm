@@ -27,6 +27,7 @@ spec:
               imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
               args:
                 - scheduler-hourly
+                - "--loglevel=info"
               volumeMounts:
                 - mountPath: /config.yaml
                   name: config
