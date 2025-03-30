@@ -10,24 +10,12 @@
 {{- end }}
 {{- end }}
 
-{{- define "autowp.backend.fullname" -}}
-{{- printf "%s-backend" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 {{- define "autowp.frontend.fullname" -}}
 {{- printf "%s-frontend" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "autowp.imagePullSecrets" -}}
-{{- include "common.images.pullSecrets" (dict "images" (list .Values.backend.image .Values.backend.nginx.image .Values.frontend.image) "global" .Values.global) -}}
-{{- end -}}
-
-{{- define "autowp.backend.image" -}}
-{{ include "common.images.image" (dict "imageRoot" .Values.backend.image "global" .Values.global) }}
-{{- end -}}
-
-{{- define "autowp.backend.nginx.image" -}}
-{{ include "common.images.image" (dict "imageRoot" .Values.backend.nginx.image "global" .Values.global) }}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.frontend.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{- define "autowp.frontend.image" -}}
@@ -58,6 +46,10 @@
 {{- printf "%s-scheduler-daily" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "autowp.goautowp.pictures-clear-queue.fullname" -}}
+{{- printf "%s-pictures-clear-queue" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "autowp.goautowp.scheduler-hourly.fullname" -}}
 {{- printf "%s-scheduler-hourly" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -68,10 +60,6 @@
 
 {{- define "autowp.goautowp.scheduler-generate-index-cache.fullname" -}}
 {{- printf "%s-scheduler-generate-index-cache" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "autowp.goautowp.serve-private.fullname" -}}
-{{- printf "%s-serve-private" (include "autowp.goautowp.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "autowp.goautowp.serve-public.fullname" -}}
