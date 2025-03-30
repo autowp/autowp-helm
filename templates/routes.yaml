@@ -51,13 +51,6 @@ spec:
   - host: {{ . }}
     http:
       paths:
-        - path: /api/picture/
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ include "autowp.goautowp.serve-public.fullname" $ | quote }}
-              port:
-                name: app-port
         - path: /api/
           pathType: Prefix
           backend:
