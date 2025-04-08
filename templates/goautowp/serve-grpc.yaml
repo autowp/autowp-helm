@@ -12,7 +12,7 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: goautowp-serve-grpc
       annotations:
-        checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
+        checksum/config: {{ (tpl (.Files.Glob "configs/goautowp/*").AsConfig . ) | sha256sum }}
     spec:
       {{- include "autowp.imagePullSecrets" . | nindent 6 }}
       volumes:
@@ -20,10 +20,6 @@ spec:
             defaultMode: 420
             name: {{ include "autowp.goautowp.fullname" . | quote }}
           name: config
-        - configMap:
-            defaultMode: 420
-            name: casbin
-          name: casbin
       containers:
         - name: goautowp-serve-grpc
           image: {{ include "autowp.goautowp.image" . }}
@@ -40,14 +36,6 @@ spec:
             - mountPath: /config.yaml
               name: config
               subPath: config.yaml
-              readOnly: true
-            - mountPath: /model.conf
-              name: casbin
-              subPath: model.conf
-              readOnly: true
-            - mountPath: /policy.csv
-              name: casbin
-              subPath: policy.csv
               readOnly: true
           resources:
             limits:

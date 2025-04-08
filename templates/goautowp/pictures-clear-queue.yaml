@@ -9,7 +9,7 @@ spec:
       template:
         metadata:
           annotations:
-            checksum/config: {{ (tpl (.Files.Glob "configs/{goautowp,casbin}/*").AsConfig . ) | sha256sum }}
+            checksum/config: {{ (tpl (.Files.Glob "configs/goautowp/*").AsConfig . ) | sha256sum }}
         spec:
           {{- include "autowp.imagePullSecrets" . | nindent 10 }}
           volumes:
@@ -17,10 +17,6 @@ spec:
                 defaultMode: 420
                 name: {{ include "autowp.goautowp.fullname" . | quote }}
               name: config
-            - configMap:
-                defaultMode: 420
-                name: casbin
-              name: casbin
           containers:
             - name: goautowp-pictures-clear-queue
               image: {{ include "autowp.goautowp.image" . }}
@@ -32,14 +28,6 @@ spec:
                 - mountPath: /config.yaml
                   name: config
                   subPath: config.yaml
-                  readOnly: true
-                - mountPath: /model.conf
-                  name: casbin
-                  subPath: model.conf
-                  readOnly: true
-                - mountPath: /policy.csv
-                  name: casbin
-                  subPath: policy.csv
                   readOnly: true
               resources:
                 limits:
