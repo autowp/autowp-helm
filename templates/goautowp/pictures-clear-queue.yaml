@@ -22,7 +22,8 @@ spec:
               image: {{ include "autowp.goautowp.image" . }}
               imagePullPolicy: {{ .Values.goautowp.image.pullPolicy | quote }}
               args:
-                - pictures-clear-queue
+                - pictures
+                - clear-queue
                 - "--loglevel=info"
               volumeMounts:
                 - mountPath: /config.yaml
