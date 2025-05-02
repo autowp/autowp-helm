@@ -17,6 +17,8 @@ spec:
                 defaultMode: 420
                 name: {{ include "autowp.goautowp.fullname" . | quote }}
               name: config
+            - name: tmp
+              emptyDir: {}
           containers:
             - name: goautowp-scheduler-midnight
               image: {{ include "autowp.goautowp.image" . }}
@@ -29,6 +31,8 @@ spec:
                   name: config
                   subPath: config.yaml
                   readOnly: true
+                - mountPath: /tmp
+                  name: tmp
               resources:
                 limits:
                   memory: 5Gi
