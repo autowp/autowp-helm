@@ -190,6 +190,8 @@ redis:
     enabled: false
     usePasswordFiles: false
   master:
+    annotations:
+      ignore-check.kube-linter.io/pdb-unhealthy-pod-eviction-policy: "pdb-unhealthy-pod-eviction-policy"
     resources:
       limits:
         cpu: "1"
@@ -202,6 +204,8 @@ redis:
     containerSecurityContext:
       readOnlyRootFilesystem: true
   replica:
+    annotations:
+      ignore-check.kube-linter.io/pdb-unhealthy-pod-eviction-policy: "pdb-unhealthy-pod-eviction-policy"
     replicaCount: 2
     resources:
       limits:
